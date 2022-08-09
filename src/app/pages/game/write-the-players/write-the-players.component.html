@@ -1,0 +1,57 @@
+<form [formGroup]="nameOfPlayerForm">
+  <div class="form-group row">
+    <label class="label col-sm-3 col-form-label"
+      >Write the name of Player</label
+    >
+    <div class="col-sm-9">
+      <input
+        type="text"
+        nbInput
+        status="info"
+        placeholder="Write the name of Player"
+        formControlName="name"
+        #nameOfPlayer
+      />
+      <div *ngIf="invalidFieldNameOfPlayerForm('name')">
+        <span class="lyricRed">please write a name</span>
+      </div>
+    </div>
+  </div>
+
+  <div class="form-group">
+    <button
+      id="btn"
+      nbButton
+      shape="semi-round"
+      status="primary"
+      [disabled]="disableButton()"
+      (click)="enterPlayer()"
+    >
+      Enter Player
+    </button>
+    <button
+      nbButton
+      shape="semi-round"
+      status="danger"
+      (click)="resetNameOfPlayerForm()"
+    >
+      Reset
+    </button>
+  </div>
+</form>
+
+<div class="table-center">
+  <table>
+    <thead>
+      <tr>
+        <th>Player</th>
+        <th>Name</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let player of players; let i = index">
+        <td>{{ i + 1 }}</td>
+        <td>{{ player.driver.name }}</td>
+      </tr>
+    </tbody>
+  </table>
