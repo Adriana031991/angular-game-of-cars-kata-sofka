@@ -6,15 +6,16 @@
     </div>
   </nb-layout-header>
 
-  <nb-layout-header subheader>
-    <div class="control-panel">
+  <nb-layout-header subheader >
+    <div class="control-panel" *ngIf="dataMenuGame$ | async as menu">
       <a (click)="toggle()">
         <nb-icon icon="menu-2-outline"></nb-icon>
-
       </a>
 
       <div>
-        <app-breadcrumbs></app-breadcrumbs>
+        <nb-actions size="large">
+          <nb-action> {{menu}}</nb-action>
+        </nb-actions>
       </div>
     </div>
   </nb-layout-header>

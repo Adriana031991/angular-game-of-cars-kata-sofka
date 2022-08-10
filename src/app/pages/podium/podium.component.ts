@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { map } from 'rxjs';
 import { FacadeService } from 'src/app/services/facade.service';
-import { gameService } from 'src/app/services/game.service';
+import { GameService } from 'src/app/services/game.service';
 
 @Component({
   selector: 'app-podium',
@@ -13,7 +13,7 @@ export class PodiumComponent implements OnInit {
   winners: string[] = [];
   resultsGame$ = this.gameService.resultGame$.pipe(map((resp:any) => {return resp['data'];}));
 
-  constructor( private facadeService: FacadeService, private gameService: gameService) { }
+  constructor( private facadeService: FacadeService, private gameService: GameService) { }
 
   ngOnInit(): void {
   }

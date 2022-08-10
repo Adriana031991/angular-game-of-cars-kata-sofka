@@ -5,7 +5,7 @@ import { ResultGame } from '../common/models/results-game.interface';
 @Injectable({
   providedIn: 'root'
 })
-export class gameService {
+export class GameService {
 
   private dataMenuGameSubject = new BehaviorSubject({});
   dataMenuGame$ = this.dataMenuGameSubject.asObservable();

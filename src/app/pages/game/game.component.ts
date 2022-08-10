@@ -4,7 +4,7 @@ import { CallToBackendService } from 'src/app/services/call-to-backend.service';
 import { RaceDialogComponent } from './race-dialog/race-dialog.component';
 
 import { Subject, takeUntil } from 'rxjs';
-import { gameService } from 'src/app/services/game.service';
+import { GameService } from 'src/app/services/game.service';
 
 @Component({
   selector: 'app-game',
@@ -25,7 +25,7 @@ export class GameComponent implements OnInit, OnDestroy {
   constructor(
     private dialogService: NbDialogService,
     private callBackend: CallToBackendService,
-    private gameService: gameService) {
+    private gameService: GameService) {
 
   }
 

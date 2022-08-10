@@ -1,10 +1,9 @@
-import { IBreadcrumb } from './../../../common/models/breadcrumb.interface';
-import { Component, OnDestroy, OnInit } from '@angular/core';
-import { FacadeService } from 'src/app/services/facade.service';
 
-import { gameService } from '../../../services/game.service';
+import { Component, OnDestroy, OnInit } from '@angular/core';
+
 import { filter, map, Subject, takeUntil } from 'rxjs';
 import { ActivationEnd, Router } from '@angular/router';
+import { GameService } from 'src/app/services/game.service';
 
 @Component({
   selector: 'app-breadcrumbs',
@@ -17,8 +16,7 @@ export class BreadcrumbsComponent implements OnInit, OnDestroy {
   breadcrumb$ = new Subject<void>();
 
   constructor(
-    private gameService: gameService,
-
+    private gameService: GameService,
     private router: Router
   ) {
     this.getRouteToBreadcrumb();
@@ -41,6 +39,7 @@ export class BreadcrumbsComponent implements OnInit, OnDestroy {
       .subscribe(({ breadcrumb }) => {
         this.breadcrumb = breadcrumb;
         console.log(this.breadcrumb);
+        this.gameService.sharedMenuGame(breadcrumb);
       });
   }
 
