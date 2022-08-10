@@ -11,9 +11,9 @@ const routes: Routes = [
   { path: '',
   component: PagesComponent,
   children: [
-    { path: 'home', component: HomeComponent },
-    { path: 'new-game', component: GameComponent },
-    { path: 'podium', component: PodiumComponent },
+    { path: 'home', component: HomeComponent, data: { breadcrumb: 'Home'} },
+    { path: 'new-game', component: GameComponent, data: { breadcrumb: 'New-game'} },
+    { path: 'podium', component: PodiumComponent, data: { breadcrumb: 'Podium'} },
   { path: 'rr', component: RaceDialogComponent},
 
     {

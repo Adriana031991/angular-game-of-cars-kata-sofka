@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { map } from 'rxjs';
 import { FacadeService } from 'src/app/services/facade.service';
-import { SelectItemService } from 'src/app/services/select-item.service';
+import { gameService } from 'src/app/services/game.service';
 
 @Component({
   selector: 'app-podium',
@@ -11,9 +11,9 @@ import { SelectItemService } from 'src/app/services/select-item.service';
 export class PodiumComponent implements OnInit {
 
   winners: string[] = [];
-  resultsGame$ = this.selectedItem.selectedItem$.pipe(map((resp:any) => {return resp['data'];}));
+  resultsGame$ = this.gameService.resultGame$.pipe(map((resp:any) => {return resp['data'];}));
 
-  constructor( private facadeService: FacadeService, private selectedItem: SelectItemService) { }
+  constructor( private facadeService: FacadeService, private gameService: gameService) { }
 
   ngOnInit(): void {
   }

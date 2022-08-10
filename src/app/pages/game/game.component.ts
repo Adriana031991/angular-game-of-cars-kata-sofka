@@ -4,7 +4,7 @@ import { CallToBackendService } from 'src/app/services/call-to-backend.service';
 import { RaceDialogComponent } from './race-dialog/race-dialog.component';
 
 import { Subject, takeUntil } from 'rxjs';
-import { SelectItemService } from 'src/app/services/select-item.service';
+import { gameService } from 'src/app/services/game.service';
 
 @Component({
   selector: 'app-game',
@@ -14,8 +14,6 @@ import { SelectItemService } from 'src/app/services/select-item.service';
 })
 
 export class GameComponent implements OnInit, OnDestroy {
-
-  // @Output() resultGame: EventEmitter<any> = new EventEmitter<any>();
 
   destroy$ = new Subject<void>();
   gameStarted = false;
@@ -27,7 +25,7 @@ export class GameComponent implements OnInit, OnDestroy {
   constructor(
     private dialogService: NbDialogService,
     private callBackend: CallToBackendService,
-    private selectedItem: SelectItemService) {
+    private gameService: gameService) {
 
   }
 
@@ -66,8 +64,7 @@ export class GameComponent implements OnInit, OnDestroy {
 
     this.callBackend.startGame(circuitCarsDto).pipe(takeUntil(this.destroy$)).subscribe(result => {
       console.log('res', result, JSON.stringify(result))
-      // this.resultGame.emit(result)
-      this.selectedItem.sharedSelectedItem(result)
+      this.gameService.sharedResultGame(result)
     });
 
     this.modalDialog();

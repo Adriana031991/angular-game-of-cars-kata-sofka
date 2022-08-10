@@ -3,7 +3,7 @@ import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { environment } from 'src/environments/environment';
 import { NewPlayerInterface, DataPlayerInterface } from '../common/models/player-interfaces';
-import { DataStartGame, ResultCircuit, ResultGame } from '../common/models/results-game';
+import { DataStartGame, ResultCircuit, ResultGame } from '../common/models/results-game.interface';
 
 
 @Injectable({

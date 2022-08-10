@@ -2,7 +2,7 @@ import { Component, EventEmitter, OnInit, Output } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { map } from 'rxjs';
 import { DataPlayer } from 'src/app/common/models/player-interfaces';
-import { Circuit } from 'src/app/common/models/results-game';
+import { Circuit } from 'src/app/common/models/results-game.interface';
 import { CallToBackendService } from 'src/app/services/call-to-backend.service';
 
 @Component({
