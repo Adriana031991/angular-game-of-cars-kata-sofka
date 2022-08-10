@@ -1,56 +1,50 @@
 import { IBreadcrumb } from './../../../common/models/breadcrumb.interface';
-import { Component, OnInit } from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
 import { FacadeService } from 'src/app/services/facade.service';
 
 import { gameService } from '../../../services/game.service';
-import { filter, map } from 'rxjs';
+import { filter, map, Subject, takeUntil } from 'rxjs';
 import { ActivationEnd, Router } from '@angular/router';
 
 @Component({
   selector: 'app-breadcrumbs',
   templateUrl: './breadcrumbs.component.html',
-  styleUrls: ['./breadcrumbs.component.scss']
+  styleUrls: ['./breadcrumbs.component.scss'],
 })
-export class BreadcrumbsComponent implements OnInit {
+export class BreadcrumbsComponent implements OnInit, OnDestroy {
 
-  public breadcrumbs: IBreadcrumb[] = [];
-  public breadcrumb1: string = '';
+  public breadcrumb: string = '';
+  breadcrumb$ = new Subject<void>();
 
   constructor(
     private gameService: gameService,
-    private facade: FacadeService,
 
-    private router: Router,
-) {
-
-      this.router.events.pipe(
-        filter((event): event is ActivationEnd => event instanceof ActivationEnd),
-        filter((event: ActivationEnd) => event.snapshot.firstChild == null ),
-        map((event: ActivationEnd ) =>
-           event.snapshot.data
-        )
-        ).subscribe(({breadcrumb}) => {
-          this.breadcrumb1 = breadcrumb
-          console.log(this.breadcrumb1)})
+    private router: Router
+  ) {
+    this.getRouteToBreadcrumb();
   }
-  ngOnInit(): void {
-
-
+  ngOnDestroy(): void {
+    this.breadcrumb$.next();
+    this.breadcrumb$.complete();
   }
 
-  navigateToHome() {
-    this.facade.navigateToHome()
+  getRouteToBreadcrumb() {
+    this.router.events
+      .pipe(
+        takeUntil(this.breadcrumb$),
+        filter(
+          (event): event is ActivationEnd => event instanceof ActivationEnd
+        ),
+        filter((event: ActivationEnd) => event.snapshot.firstChild == null),
+        map((event: ActivationEnd) => event.snapshot.data)
+      )
+      .subscribe(({ breadcrumb }) => {
+        this.breadcrumb = breadcrumb;
+        console.log(this.breadcrumb);
+      });
   }
 
-  navigateToNewGame() {
-    this.facade.navigateToNewGame()
-  }
-
-  navigateToPodium() {
-    this.facade.navigateToPodium()
-  }
-
-
+  ngOnInit(): void { }
 
 
 }
