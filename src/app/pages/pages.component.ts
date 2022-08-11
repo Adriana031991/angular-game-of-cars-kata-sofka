@@ -1,7 +1,4 @@
-import { Component, OnDestroy, OnInit } from '@angular/core';
-import { NbMenuService } from '@nebular/theme';
-import { Subject, takeUntil, tap } from 'rxjs';
-import { GameService } from '../services/game.service';
+import { Component } from '@angular/core';
 
 import { MENU_ITEMS } from './menu-service-items';
 

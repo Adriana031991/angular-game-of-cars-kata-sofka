@@ -6,7 +6,7 @@ import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
-import { NbMenuModule, NbThemeModule } from '@nebular/theme';
+import { NbDialogModule, NbMenuModule, NbThemeModule } from '@nebular/theme';
 import { UiModule } from './common/ui.module';
 
 
@@ -23,7 +23,7 @@ import { UiModule } from './common/ui.module';
     NbThemeModule.forRoot({ name: 'default' }),
     UiModule,
     NbMenuModule.forRoot(),
-
+    NbDialogModule.forRoot(),
 
     // FontAwesomeModule,
 

@@ -3,8 +3,9 @@ import { NbDialogService } from '@nebular/theme';
 import { CallToBackendService } from 'src/app/services/call-to-backend.service';
 import { RaceDialogComponent } from './race-dialog/race-dialog.component';
 
-import { Subject, takeUntil } from 'rxjs';
-import { GameService } from 'src/app/services/game.service';
+import { map, Subject, takeUntil } from 'rxjs';
+import { SharedService } from 'src/app/services/shared.service';
+import { FirstForm } from 'src/app/common/models/form.interface';
 
 @Component({
   selector: 'app-game',
@@ -18,14 +19,27 @@ export class GameComponent implements OnInit, OnDestroy {
   destroy$ = new Subject<void>();
   gameStarted = false;
 
-  dataExist:boolean = false;
-  gameForm: any;
+  dataExist: boolean = false;
+  gameForm!: FirstForm;
   players= [];
+
+  firstConfigureForm$ = this.sharedService.firstConfigureForm$
+    .subscribe((data:any) => {
+      this.dataExist = data.state;
+      this.gameForm = data.data;
+    })
+
+  secondConfigureForm$ = this.sharedService.secondConfigureForm$
+    .subscribe((data:any) => {
+      this.gameStarted = data.state;
+      this.players = data.data;
+    })
+
 
   constructor(
     private dialogService: NbDialogService,
     private callBackend: CallToBackendService,
-    private gameService: GameService) {
+    private sharedService: SharedService) {
 
   }
 
@@ -44,26 +58,17 @@ export class GameComponent implements OnInit, OnDestroy {
     return this.players.length !== this.gameForm.numberOfPlayers
   }
 
-  dataOfTrack(event:any) {
-    this.dataExist = event.state;
-    this.gameForm = event.data;
-  }
-
-  dataOfPlayer(event:any) {
-    this.players = event.data;
-    this.gameStarted = event.gameStarted;
-  }
-
-
   startGame(){
 
     let circuitCarsDto = {
       circuit: this.gameForm.track,
       cars: [...this.players]
     }
+    console.log('circuitCarsDto', circuitCarsDto)
 
-    this.callBackend.startGame(circuitCarsDto).pipe(takeUntil(this.destroy$)).subscribe(result => {
-      this.gameService.sharedResultGame(result)
+    this.callBackend.startGame(circuitCarsDto).
+    pipe(takeUntil(this.destroy$)).subscribe(result => {
+      this.sharedService.sharedResultGame(result)
     });
 
     this.modalDialog();

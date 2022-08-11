@@ -1,9 +1,9 @@
-<form [formGroup]="gameForm" >
+<form [formGroup]="firstConfigureForm" >
   <div>
     <div class="form-group row select">
       <label class="col-sm-3 label">Select the track</label>
 
-      <div class="col-sm-9" *ngIf="listCircuits$ | async as tracks">
+      <div class="col-sm-9 select--track" *ngIf="listCircuits$ | async as tracks">
         <nb-select
         placeholder="Choose the Track"
         [(ngModel)]="selectedItem"
@@ -47,7 +47,7 @@
       nbButton
       shape="semi-round"
       status="primary"
-      [disabled]="gameForm.invalid"
+      [disabled]="firstConfigureForm.invalid"
       (click)="chargeDataOfTrackAndNumberOfPlayer()"
     >
       Next

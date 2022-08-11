@@ -1,9 +1,11 @@
-import { Component, EventEmitter, Input, OnDestroy, OnInit, Output } from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Subject, takeUntil } from 'rxjs';
 import { NewPlayer } from 'src/app/common/classes/new-player';
+import { SecondConfigureForm } from 'src/app/common/models/form.interface';
 import { DataPlayer } from 'src/app/common/models/player-interfaces';
 import { CallToBackendService } from 'src/app/services/call-to-backend.service';
+import { SharedService } from 'src/app/services/shared.service';
 
 @Component({
   selector: 'app-write-the-players',
@@ -12,9 +14,7 @@ import { CallToBackendService } from 'src/app/services/call-to-backend.service';
 })
 export class WriteThePlayersComponent implements OnInit, OnDestroy {
 
-  @Input() dataNumberOfPlayers: number = 0;
-  @Output() dataPlayers: EventEmitter<any> = new EventEmitter<any>();
-  // @Output() gameStarted: EventEmitter<boolean> = new EventEmitter<boolean>();
+  dataNumberOfPlayers: number = 0;
   players: DataPlayer[] = [];
 
   public nameOfPlayerForm: FormGroup = this.fb.group({
@@ -23,22 +23,30 @@ export class WriteThePlayersComponent implements OnInit, OnDestroy {
 
   destroy$ = new Subject<void>();
 
-  constructor(private fb: FormBuilder, private callBackend: CallToBackendService) { }
+  firstConfigureForm$ = this.sharedService.firstConfigureForm$
+  .subscribe((data:any) => {
+    this.dataNumberOfPlayers = data.data.numberOfPlayers;
+  })
+
+
+  constructor(
+    private fb: FormBuilder,
+    private sharedService: SharedService,
+    private callBackend: CallToBackendService) { }
 
   ngOnInit(): void {
   }
+
   ngOnDestroy(): void {
-
     this.destroy$.next();
-
     this.destroy$.complete();
 
   }
+
   resetNameOfPlayerForm() {
     this.nameOfPlayerForm.reset();
     this.nameOfPlayerForm.enable();
   }
-
 
   invalidFieldNameOfPlayerForm(field: any) {
     return this.nameOfPlayerForm.get(field)?.invalid && this.nameOfPlayerForm.get(field)?.dirty;
@@ -54,11 +62,19 @@ export class WriteThePlayersComponent implements OnInit, OnDestroy {
 
     const player = new NewPlayer(0,dataPlayerForm);
 
-    this.callBackend.addNewPlayer(player).pipe(takeUntil(this.destroy$)).subscribe(resp => {
+    this.callBackend.addNewPlayer(player)
+    .pipe(takeUntil(this.destroy$))
+    .subscribe(resp => {
       this.players = [...this.players, resp.data]
-      this.dataPlayers.emit({data:this.players, gameStarted: true});
-      // this.gameStarted.emit(true);
+      this.sharedData();
+
     });
+
+  }
+
+  sharedData(){
+    const data: SecondConfigureForm = {state:true, data: this.players}
+    this.sharedService.SharedSecondConfigureForm(data)
 
   }
 

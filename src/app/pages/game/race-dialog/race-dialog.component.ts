@@ -1,6 +1,6 @@
 import { Component, Input, OnInit, Optional } from '@angular/core';
 import { NbDialogRef } from '@nebular/theme';
-import { FacadeService } from 'src/app/services/facade.service';
+import { FacadeService } from '../../services/facade.service';
 
 @Component({
   selector: 'app-race-dialog',

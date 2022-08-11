@@ -1,7 +1,6 @@
 import { Component } from '@angular/core';
-import { NbSidebarService } from '@nebular/theme';
-import { GameService } from 'src/app/services/game.service';
-
+import { FacadeService } from 'src/app/pages/services/facade.service';
+import { SharedService } from 'src/app/services/shared.service';
 
 @Component({
   selector: 'app-layout',
@@ -12,12 +11,13 @@ export class LayoutComponent {
 
   dataMenuGame$ = this.gameService.dataMenuGame$;
 
-  constructor(private sidebarService: NbSidebarService, private gameService: GameService) {
+  constructor(
+    private facadeService: FacadeService,
+    private gameService: SharedService) {
   }
 
   toggle() {
-    this.sidebarService.toggle(true);
-    return false;
+    this.facadeService.toggle();
   }
 
 

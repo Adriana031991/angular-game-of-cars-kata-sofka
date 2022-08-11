@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { FacadeService } from 'src/app/services/facade.service';
+import { FacadeService } from '../services/facade.service';
 
 @Component({
   selector: 'app-home',
