@@ -6,7 +6,7 @@ import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
-import { NbDialogModule, NbLayoutModule, NbMenuModule, NbThemeModule } from '@nebular/theme';
+import { NbMenuModule, NbThemeModule } from '@nebular/theme';
 import { UiModule } from './common/ui.module';
 
 

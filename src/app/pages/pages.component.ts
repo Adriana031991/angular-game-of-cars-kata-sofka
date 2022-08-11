@@ -1,6 +1,6 @@
-import { Component, OnDestroy } from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
 import { NbMenuService } from '@nebular/theme';
-import { Subject, takeUntil } from 'rxjs';
+import { Subject, takeUntil, tap } from 'rxjs';
 import { GameService } from '../services/game.service';
 
 import { MENU_ITEMS } from './menu-service-items';
@@ -10,32 +10,14 @@ import { MENU_ITEMS } from './menu-service-items';
   styleUrls: ['pages.component.scss'],
   template: `
     <app-layout>
-    <nb-menu tag="menu" [items]="menuItems" ></nb-menu>
+    <nb-menu [items]="menuItems" ></nb-menu>
       <router-outlet></router-outlet>
     </app-layout>
   `,
 })
-export class PagesComponent implements OnDestroy{
+export class PagesComponent {
 
   menuItems = MENU_ITEMS;
 
-  private destroy$ = new Subject<void>();
 
-
-  constructor(private menuService: NbMenuService, private gameService: GameService) {
-    this.getSelectedItem();
-  }
-
-  ngOnDestroy(): void {
-    this.destroy$.next();
-    this.destroy$.complete();
-  }
-
-  getSelectedItem() {
-    this.menuService.getSelectedItem('menu')
-      .pipe(takeUntil(this.destroy$))
-      .subscribe( (menuBag) => {
-        this.gameService.sharedMenuGame(menuBag.item.title);
-      });
-  }
 }

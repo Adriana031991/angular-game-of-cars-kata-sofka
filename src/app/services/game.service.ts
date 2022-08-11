@@ -20,6 +20,7 @@ export class GameService {
   }
 
   sharedMenuGame(item:any) {
+    console.log('service', item)
     this.dataMenuGameSubject.next(item);
   }
 

@@ -63,7 +63,6 @@ export class GameComponent implements OnInit, OnDestroy {
     }
 
     this.callBackend.startGame(circuitCarsDto).pipe(takeUntil(this.destroy$)).subscribe(result => {
-      console.log('res', result, JSON.stringify(result))
       this.gameService.sharedResultGame(result)
     });
 

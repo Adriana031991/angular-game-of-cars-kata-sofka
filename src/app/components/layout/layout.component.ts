@@ -1,5 +1,4 @@
 import { Component } from '@angular/core';
-import { Router } from '@angular/router';
 import { NbSidebarService } from '@nebular/theme';
 import { GameService } from 'src/app/services/game.service';
 

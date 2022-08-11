@@ -12,12 +12,12 @@ export const MENU_ITEMS: NbMenuItem[] = [
     title: 'Start Game',
     icon: 'play-circle-outline',
     link: '/layout/new-game',
-
+    // selected: true
   },
   {
     title: 'Podium',
     icon: 'people-outline',
     link: '/layout/podium',
-
+    // selected: true
   },
 ];

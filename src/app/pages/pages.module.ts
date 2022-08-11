@@ -14,7 +14,6 @@ import { RaceDialogComponent } from './game/race-dialog/race-dialog.component';
 import { PathNotFoundComponent } from './path-not-found/path-not-found.component';
 import { ChooseTrackAndNumberOfPlayersComponent } from './game/choose-track-and-number-of-players/choose-track-and-number-of-players.component';
 import { WriteThePlayersComponent } from './game/write-the-players/write-the-players.component';
-import { BreadcrumbsComponent } from './breadcrumbs/breadcrumbs.component';
 
 
 @NgModule({
@@ -27,7 +26,6 @@ import { BreadcrumbsComponent } from './breadcrumbs/breadcrumbs.component';
     PathNotFoundComponent,
     ChooseTrackAndNumberOfPlayersComponent,
     WriteThePlayersComponent,
-    BreadcrumbsComponent
   ],
 
   imports: [
@@ -37,7 +35,7 @@ import { BreadcrumbsComponent } from './breadcrumbs/breadcrumbs.component';
     ComponentsModule,
     ReactiveFormsModule,
     NbDialogModule.forChild(),
+
   ],
-  exports: [ BreadcrumbsComponent]
 })
 export class PagesModule { }
