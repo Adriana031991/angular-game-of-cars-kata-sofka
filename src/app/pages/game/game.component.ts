@@ -1,11 +1,10 @@
-import { ChangeDetectionStrategy, Component,  EventEmitter,  OnDestroy,  OnInit, Output } from '@angular/core';
-import { NbDialogService } from '@nebular/theme';
+import { ChangeDetectionStrategy, Component,  OnDestroy,  OnInit } from '@angular/core';
 import { CallToBackendService } from 'src/app/services/call-to-backend.service';
-import { RaceDialogComponent } from './race-dialog/race-dialog.component';
 
-import { map, Subject, takeUntil } from 'rxjs';
+import { Subject, takeUntil } from 'rxjs';
 import { SharedService } from 'src/app/services/shared.service';
-import { FirstForm } from 'src/app/common/models/form.interface';
+import { FacadeService } from '../services/facade.service';
+import { Car, Circuit } from 'src/app/common/models/results-game.interface';
 
 @Component({
   selector: 'app-game',
@@ -15,31 +14,31 @@ import { FirstForm } from 'src/app/common/models/form.interface';
 })
 
 export class GameComponent implements OnInit, OnDestroy {
-
   destroy$ = new Subject<void>();
-  gameStarted = false;
+  destroyConfigure$ = new Subject<void>();
 
-  dataExist: boolean = false;
-  gameForm!: FirstForm;
-  players= [];
+  gameStarted: boolean = false;
+  numberOfPlayers: number = 0;
+  track!:Circuit;
+  drivers: Car[]= [];
 
-  firstConfigureForm$ = this.sharedService.firstConfigureForm$
-    .subscribe((data:any) => {
-      this.dataExist = data.state;
-      this.gameForm = data.data;
-    })
+  configureForm$ = this.sharedService.configureFormSubject$
+    .pipe(takeUntil(this.destroyConfigure$))
+    .subscribe( (result:any) => {
 
-  secondConfigureForm$ = this.sharedService.secondConfigureForm$
-    .subscribe((data:any) => {
-      this.gameStarted = data.state;
-      this.players = data.data;
+      const {state,data,dataDrivers} = result;
+      this.drivers = dataDrivers;
+      this.numberOfPlayers = data.numberOfPlayers;
+      this.track = data.track;
+      this.gameStarted=state;
+      console.log('shared first data form', result)
     })
 
 
   constructor(
-    private dialogService: NbDialogService,
     private callBackend: CallToBackendService,
-    private sharedService: SharedService) {
+    private sharedService: SharedService,
+    private facadeService: FacadeService,) {
 
   }
 
@@ -49,39 +48,37 @@ export class GameComponent implements OnInit, OnDestroy {
   ngOnDestroy(): void {
 
     this.destroy$.next();
-
     this.destroy$.complete();
+    this.destroyConfigure$.next();
+    this.destroyConfigure$.complete();
 
   }
 
   disableButton() {
-    return this.players.length !== this.gameForm.numberOfPlayers
+    console.log('test', this.drivers.length, 'test', this.numberOfPlayers)
+    return this.drivers.length !== this.numberOfPlayers
   }
 
   startGame(){
+    console.group('drivers', this.drivers,
+    'number', this.numberOfPlayers, 'track', this.track)
+
 
     let circuitCarsDto = {
-      circuit: this.gameForm.track,
-      cars: [...this.players]
+      circuit: this.track,
+      cars: [...this.drivers]
     }
-    console.log('circuitCarsDto', circuitCarsDto)
 
     this.callBackend.startGame(circuitCarsDto).
     pipe(takeUntil(this.destroy$)).subscribe(result => {
       this.sharedService.sharedResultGame(result)
     });
 
-    this.modalDialog();
+    this.facadeService.modalDialog('The race has finished');
+    console.log('que pasa game', circuitCarsDto)
+
   }
 
-  private modalDialog() {
-    this.dialogService.open(RaceDialogComponent, {
-      context: {
-        title: 'The race has finished',
-      },
-      closeOnBackdropClick: false,
-      closeOnEsc: false,
-    });
-  }
+
 
 }

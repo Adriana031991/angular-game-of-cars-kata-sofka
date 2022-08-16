@@ -1,16 +1,14 @@
 import { Car, Circuit } from "./results-game.interface";
 
-export interface FirstConfigureForm {
-  state: boolean;
-  data:  FirstForm;
-}
 
 export interface FirstForm {
   track:           Circuit;
   numberOfPlayers: number;
 }
 
-export interface SecondConfigureForm {
+
+export interface ConfigureForm {
   state: boolean;
-  data:  Car[];
+  data:  FirstForm;
+  dataDrivers:  Car[];
 }

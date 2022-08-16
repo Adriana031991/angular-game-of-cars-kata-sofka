@@ -21,7 +21,7 @@ export class CallToBackendService {
   }
 
   addNewPlayer(newPlayer:NewPlayerInterface):Observable<DataPlayerInterface> {
-    return this.http.post<DataPlayerInterface>( `${this.URL}/player`, newPlayer );
+    return this.http.post<DataPlayerInterface>( `${this.URL}/player/create`, newPlayer );
   }
 
   listCircuits$ = this.http.get<ResultCircuit[]>( `${this.URL}/circuit`);
@@ -29,7 +29,7 @@ export class CallToBackendService {
 
 
   saveCircuit(circuit: any) {
-    return this.http.post( `${this.URL}/circuit`, circuit.circuitName);
+    return this.http.post( `${this.URL}/circuit/create`, circuit.circuitName);
   }
 
 

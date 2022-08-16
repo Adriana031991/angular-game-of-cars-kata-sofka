@@ -1,6 +1,5 @@
 import { Injectable } from '@angular/core';
 import { BehaviorSubject } from 'rxjs';
-import { FirstConfigureForm, SecondConfigureForm } from '../common/models/form.interface';
 import { ResultGame } from '../common/models/results-game.interface';
 
 @Injectable({
@@ -14,11 +13,9 @@ export class SharedService {
   private resultGameSubject = new BehaviorSubject({});
   resultGame$ = this.resultGameSubject.asObservable();
 
-  private firstConfigureFormSubject = new BehaviorSubject({});
-  firstConfigureForm$ = this.firstConfigureFormSubject.asObservable();
+  private configureFormSubject = new BehaviorSubject({});
+  configureFormSubject$ = this.configureFormSubject.asObservable();
 
-  private secondConfigureFormSubject = new BehaviorSubject({});
-  secondConfigureForm$ = this.secondConfigureFormSubject.asObservable();
 
   constructor() { }
 
@@ -31,12 +28,9 @@ export class SharedService {
     this.dataMenuGameSubject.next(item);
   }
 
-  SharedFirstConfigureForm(data:FirstConfigureForm) {
-    this.firstConfigureFormSubject.next(data);
+  SharedConfigureForm(data:any) {
+    this.configureFormSubject.next(data);
   }
 
-  SharedSecondConfigureForm(data:SecondConfigureForm) {
-    this.secondConfigureFormSubject.next(data);
-  }
 
 }

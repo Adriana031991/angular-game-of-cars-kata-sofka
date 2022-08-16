@@ -2,21 +2,7 @@
   <div class="col-md-6">
     <nb-card status="success">
       <nb-card-header>Configure you game</nb-card-header>
-
-      <nb-card-body *ngIf="!dataExist">
-        <app-choose-track-and-number-of-players></app-choose-track-and-number-of-players>
-        <!-- <app-choose-track-and-number-of-players
-          (dataExist)="dataOfTrack($event)"
-        ></app-choose-track-and-number-of-players> -->
-      </nb-card-body>
-
-      <nb-card-body *ngIf="dataExist">
-        <app-write-the-players></app-write-the-players>
-        <!-- <app-write-the-players
-        [dataNumberOfPlayers]="gameForm.numberOfPlayers"
-          (dataPlayers)="dataOfPlayer($event)"
-        ></app-write-the-players> -->
-      </nb-card-body>
+<app-configure-game></app-configure-game>
       <nb-card-footer *ngIf="gameStarted" >
         <button
           nbButton

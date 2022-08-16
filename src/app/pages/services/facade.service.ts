@@ -51,10 +51,10 @@ export class FacadeService implements OnDestroy {
       });
   }
 
-  modalDialog() {
+  modalDialog(message: string) {
     this.dialogService.open(RaceDialogComponent, {
       context: {
-        title: 'The race has finished',
+        title: message,
       },
       closeOnBackdropClick: false,
       closeOnEsc: false,

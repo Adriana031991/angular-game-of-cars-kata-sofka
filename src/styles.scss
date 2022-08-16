@@ -48,12 +48,12 @@ nb-card-footer{
 
 
 .players {
-  margin-bottom: 10%;
+  margin-bottom: 5%;
 }
 
 
 .select, .players {
-  margin-top: 10%;
+  margin-top: 5%;
 }
 
 
@@ -63,6 +63,9 @@ nb-card-footer{
   width: 150px;
 }
 
+nb-select {
+  margin-top: -4%;
+}
 nb-card-body {
   form {
     display: flex;
