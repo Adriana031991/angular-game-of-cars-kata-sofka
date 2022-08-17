@@ -22,6 +22,7 @@ export class GameComponent implements OnInit, OnDestroy {
   track!:Circuit;
   drivers: Car[]= [];
 
+
   configureForm$ = this.sharedService.configureFormSubject$
     .pipe(takeUntil(this.destroyConfigure$))
     .subscribe( (result:any) => {
@@ -31,6 +32,7 @@ export class GameComponent implements OnInit, OnDestroy {
       this.numberOfPlayers = data.numberOfPlayers;
       this.track = data.track;
       this.gameStarted=state;
+
       console.log('shared first data form', result)
     })
 
@@ -68,6 +70,7 @@ export class GameComponent implements OnInit, OnDestroy {
       circuit: this.track,
       cars: [...this.drivers]
     }
+    console.log('que pasa game', circuitCarsDto)
 
     this.callBackend.startGame(circuitCarsDto).
     pipe(takeUntil(this.destroy$)).subscribe(result => {
@@ -75,7 +78,6 @@ export class GameComponent implements OnInit, OnDestroy {
     });
 
     this.facadeService.modalDialog('The race has finished');
-    console.log('que pasa game', circuitCarsDto)
 
   }
 

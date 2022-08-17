@@ -1,4 +1,9 @@
-import { ChangeDetectionStrategy, Component, OnDestroy, OnInit } from '@angular/core';
+import {
+  ChangeDetectionStrategy,
+  Component,
+  OnDestroy,
+  OnInit,
+} from '@angular/core';
 import {
   FormBuilder,
   FormControl,
@@ -16,11 +21,9 @@ import { SharedService } from 'src/app/services/shared.service';
   selector: 'app-configure-game',
   templateUrl: './configure-game.component.html',
   styleUrls: ['./configure-game.component.scss'],
-  changeDetection: ChangeDetectionStrategy.OnPush
-
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class ConfigureGameComponent implements OnInit, OnDestroy {
-
   players: DataPlayer[] = [];
   selectedItem: Circuit = { id: 0, name: '', lanes: [], kilometers: 0 };
   openFieldForm: boolean = false;
@@ -30,14 +33,20 @@ export class ConfigureGameComponent implements OnInit, OnDestroy {
   public configureGameForm: FormGroup = this.fb.group({
     track: ['', Validators.required],
     numberOfPlayers: [, [Validators.required, Validators.min(3)]],
-    name: [],
+    nameOfPlayer: [],
 
   });
+
+  nameOfGame = this.configureGameForm.controls['nameOfGame'];
+  nameOfPlayer = this.configureGameForm.controls['nameOfPlayer']
+  numberOfPlayers = this.configureGameForm.controls['numberOfPlayers'];
+  track = this.configureGameForm.controls['track'];
 
   destroy$ = new Subject<void>();
 
   listOfTracks$ = this.callBackend.listCircuits$.pipe(
     map((resp: any) => {
+      console.log('circuits', resp.data[5], JSON.stringify(resp.data[5]))
       return resp['data'];
     })
   );
@@ -56,7 +65,8 @@ export class ConfigureGameComponent implements OnInit, OnDestroy {
   }
 
   openFieldName() {
-    const name = this.configureGameForm.get('name');
+    const name = this.nameOfPlayer;
+    // const name = this.configureGameForm.get('name');
     name?.setValidators([Validators.required, Validators.min(3)]);
     name?.updateValueAndValidity();
 
@@ -65,7 +75,7 @@ export class ConfigureGameComponent implements OnInit, OnDestroy {
   }
 
   resetNameOfPlayerForm() {
-    this.configureGameForm.get('name')?.setValue(null);
+    this.nameOfPlayer?.setValue(null);
   }
 
   resetConfigureForm() {
@@ -78,7 +88,6 @@ export class ConfigureGameComponent implements OnInit, OnDestroy {
   back() {
     this.isDisabledFirstForm = false;
     this.isDisabledSecondForm = true;
-
   }
 
   invalidField(field: any) {
@@ -90,44 +99,40 @@ export class ConfigureGameComponent implements OnInit, OnDestroy {
 
   disableButtonEntryPlayer() {
     return (
-      this.configureGameForm.controls['name']?.invalid ||
+      this.nameOfPlayer?.invalid ||
       this.players.length ===
-        this.configureGameForm.controls['numberOfPlayers'].value
+        this.numberOfPlayers.value
     );
   }
 
   disableButtonNext() {
     return (
-      this.configureGameForm.controls['track'].invalid ||
-      this.configureGameForm.controls['numberOfPlayers'].invalid
+      this.track.invalid ||
+      this.numberOfPlayers.invalid
     );
   }
 
-
-
   enterPlayer() {
+    // const dataPlayerForm = this.configureGameForm.controls['name'].value;
 
-    const dataPlayerForm = this.configureGameForm.controls['name'].value;
-
-    const player = new NewPlayer(0,dataPlayerForm);
-   this.callBackend.addNewPlayer(player)
-    .pipe(takeUntil(this.destroy$))
-    .subscribe(resp => {
-
-      this.players = [...this.players, resp.data]
-      this.sharedData();
-
-    });
-    console.log('players3', this.players)
-
+    const player = new NewPlayer(0, this.nameOfPlayer.value);
+    this.callBackend
+      .addNewPlayer(player)
+      .pipe(takeUntil(this.destroy$))
+      .subscribe((resp) => {
+        this.players = [...this.players, resp.data];
+        // this.sharedData();
+        console.log('players3', this.players);
+      });
   }
 
-  sharedData(){
-    const data: any = {state:true, data: this.configureGameForm.value, dataDrivers: this.players}
-    this.sharedService.SharedConfigureForm(data)
-    console.log('sharedData', data)
-
+  sharedData() {
+    const data: any = {
+      state: true,
+      data: this.configureGameForm.value,
+      dataDrivers: this.players,
+    };
+    this.sharedService.SharedConfigureForm(data);
+    console.log('sharedData', data);
   }
-
-
 }

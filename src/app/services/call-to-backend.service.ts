@@ -3,7 +3,7 @@ import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { environment } from 'src/environments/environment';
 import { NewPlayerInterface, DataPlayerInterface } from '../common/models/player-interfaces';
-import { DataStartGame, ResultCircuit, ResultGame } from '../common/models/results-game.interface';
+import { Circuit, DataStartGame, ResultCircuit, ResultGame } from '../common/models/results-game.interface';
 
 
 @Injectable({
@@ -21,7 +21,7 @@ export class CallToBackendService {
   }
 
   addNewPlayer(newPlayer:NewPlayerInterface):Observable<DataPlayerInterface> {
-    return this.http.post<DataPlayerInterface>( `${this.URL}/player/create`, newPlayer );
+    return this.http.post<DataPlayerInterface>( `${this.URL}/player`, newPlayer );
   }
 
   listCircuits$ = this.http.get<ResultCircuit[]>( `${this.URL}/circuit`);
@@ -29,8 +29,9 @@ export class CallToBackendService {
 
 
   saveCircuit(circuit: any) {
-    return this.http.post( `${this.URL}/circuit/create`, circuit.circuitName);
+    return this.http.post( `${this.URL}/circuit`, circuit);
   }
+
 
 
   getCars$= this.http.get( `${this.URL}/car`);

@@ -1,5 +1,6 @@
 <form [formGroup]="configureGameForm" >
   <div class="first--form" [ngClass]="{disable: isDisabledFirstForm}">
+
     <div class="form-group row select">
       <label class="label col-sm-3 col-form-label">Select the track</label>
 
@@ -75,9 +76,9 @@
         status="info"
         placeholder="Write the name of Player"
         #nameOfPlayer
-        formControlName="name"
+        formControlName="nameOfPlayer"
         />
-      <div *ngIf="invalidField('name')">
+      <div *ngIf="invalidField('nameOfPlayer')">
         <span class="lyricRed">please write a name</span>
       </div>
     </div>
@@ -120,7 +121,7 @@
           </tr>
         </thead>
         <tbody>
-          <tr *ngFor="let player of players; let i = index">
+          <tr *ngFor="let player of players ; let i = index">
             <td>{{i+1}}</td>
             <td>{{ player|json }}</td>
           </tr>

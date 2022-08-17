@@ -12,8 +12,9 @@ import { PodiumComponent } from './podium/podium.component';
 import { ReactiveFormsModule } from '@angular/forms';
 import { RaceDialogComponent } from './game/race-dialog/race-dialog.component';
 import { PathNotFoundComponent } from './path-not-found/path-not-found.component';
-import { ConfigureGameComponent } from './game/configure-game/configure-game.component';
-import { CreateGameAndCircuitComponent } from './game/configure-game/create-game-and-circuit/create-game-and-circuit.component';
+import { ConfigureGameComponent } from './game/configurations/configure-game/configure-game.component';
+import { ConfigurationsComponent } from './game/configurations/configurations.component';
+import { CreateCircuitComponent } from './game/configurations/create-circuit/create-circuit.component';
 
 
 @NgModule({
@@ -25,7 +26,8 @@ import { CreateGameAndCircuitComponent } from './game/configure-game/create-game
     RaceDialogComponent,
     PathNotFoundComponent,
     ConfigureGameComponent,
-    CreateGameAndCircuitComponent,
+    ConfigurationsComponent,
+    CreateCircuitComponent,
   ],
 
   imports: [

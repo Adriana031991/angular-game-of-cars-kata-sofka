@@ -1,0 +1,103 @@
+<form [formGroup]="createCircuitForm" >
+  <!-- -->
+  <!-- class="first--form" [ngClass]="{disable: isDisabledFirstForm}" -->
+
+
+    <div class="form-group row "  >
+      <!-- [ngClass]="{disable: isDisabledSecondForm}" -->
+      <label class="label col-sm-3 col-form-label"
+        >Name of Track</label
+      >
+      <div class="col-sm-9">
+        <input
+          type="text"
+          nbInput
+          status="info"
+          placeholder="Write the name of Track"
+          formControlName="nameOfTrack"
+          />
+        <div *ngIf="invalidField('nameOfTrack')">
+          <span class="lyricRed">please write a number</span>
+        </div>
+      </div>
+
+    <div class="form-group row "  >
+      <label class="label col-sm-3 col-form-label"
+        >Kilometers of Track</label
+      >
+      <div class="col-sm-9">
+        <input
+          type="number"
+          nbInput
+          status="info"
+          placeholder="Write the kilometers of Track"
+          formControlName="kilometers"
+          />
+        <div *ngIf="invalidField('kilometers')">
+          <span class="lyricRed">please write a number</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="form-group row "  >
+      <label class="label col-sm-3 col-form-label"
+        >Lanes of Track</label
+      >
+      <div class="col-sm-9">
+        <input
+          type="number"
+          nbInput
+          status="info"
+          placeholder="Write the lanes of Track"
+          formControlName="lanes"
+          />
+        <div *ngIf="invalidField('lanes')">
+          <span class="lyricRed">please write a number</span>
+        </div>
+      </div>
+    </div>
+
+    <div class=" form-group">
+      <button
+        nbButton
+        shape="semi-round"
+        status="primary"
+        [disabled]="disableButton()"
+        (click)="enterDataLane()"
+      >
+        Next
+      </button>
+      <button
+      nbButton status="danger"
+      shape="semi-round"
+      (click)="reset()" >
+        Reset
+      </button>
+    </div>
+
+  </div>
+
+
+
+
+
+    <div class="table-center"  >
+      <table>
+        <thead>
+          <tr>
+            <th>Track</th>
+            <th>Name of Track</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr >
+            <td></td>
+            <td></td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+
+</form>
+
