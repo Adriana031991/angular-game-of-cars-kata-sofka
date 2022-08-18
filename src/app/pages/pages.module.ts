@@ -15,6 +15,7 @@ import { PathNotFoundComponent } from './path-not-found/path-not-found.component
 import { ConfigureGameComponent } from './game/configurations/configure-game/configure-game.component';
 import { ConfigurationsComponent } from './game/configurations/configurations.component';
 import { CreateCircuitComponent } from './game/configurations/create-circuit/create-circuit.component';
+import { FsIconComponent, TreeGridComponent } from './game/configurations/tree-grid/tree-grid.component';
 
 
 @NgModule({
@@ -28,6 +29,8 @@ import { CreateCircuitComponent } from './game/configurations/create-circuit/cre
     ConfigureGameComponent,
     ConfigurationsComponent,
     CreateCircuitComponent,
+    TreeGridComponent,
+    FsIconComponent
   ],
 
   imports: [

@@ -1,4 +1,4 @@
-import { ChangeDetectionStrategy, Component,  OnDestroy,  OnInit } from '@angular/core';
+import { ChangeDetectionStrategy, ChangeDetectorRef, Component,  OnDestroy,  OnInit } from '@angular/core';
 import { CallToBackendService } from 'src/app/services/call-to-backend.service';
 
 import { Subject, takeUntil } from 'rxjs';
@@ -29,18 +29,19 @@ export class GameComponent implements OnInit, OnDestroy {
 
       const {state,data,dataDrivers} = result;
       this.drivers = dataDrivers;
-      this.numberOfPlayers = data.numberOfPlayers;
-      this.track = data.track;
+      this.numberOfPlayers = data?.numberOfPlayers;
+      this.track = data?.track;
       this.gameStarted=state;
-
-      console.log('shared first data form', result)
+      this.changeDetection.detectChanges();
+      // console.log('shared first data form', result)
     })
 
 
   constructor(
     private callBackend: CallToBackendService,
     private sharedService: SharedService,
-    private facadeService: FacadeService,) {
+    private facadeService: FacadeService,
+    private changeDetection: ChangeDetectorRef) {
 
   }
 
@@ -57,27 +58,29 @@ export class GameComponent implements OnInit, OnDestroy {
   }
 
   disableButton() {
-    console.log('test', this.drivers.length, 'test', this.numberOfPlayers)
+    // console.log('test', this.drivers.length, 'test', this.numberOfPlayers)
     return this.drivers.length !== this.numberOfPlayers
   }
 
   startGame(){
-    console.group('drivers', this.drivers,
-    'number', this.numberOfPlayers, 'track', this.track)
+
+    this.facadeService.navigateToRr();
+    // console.group('drivers', this.drivers,
+    // 'number', this.numberOfPlayers, 'track', this.track)
 
 
-    let circuitCarsDto = {
-      circuit: this.track,
-      cars: [...this.drivers]
-    }
-    console.log('que pasa game', circuitCarsDto)
+    // let circuitCarsDto = {
+    //   circuit: this.track,
+    //   cars: [...this.drivers]
+    // }
+    // console.log('que pasa game', circuitCarsDto)
 
-    this.callBackend.startGame(circuitCarsDto).
-    pipe(takeUntil(this.destroy$)).subscribe(result => {
-      this.sharedService.sharedResultGame(result)
-    });
+    // this.callBackend.startGame(circuitCarsDto).
+    // pipe(takeUntil(this.destroy$)).subscribe(result => {
+    //   this.sharedService.sharedResultGame(result)
+    // });
 
-    this.facadeService.modalDialog('The race has finished');
+    // this.facadeService.modalDialog('The race has finished');
 
   }
 

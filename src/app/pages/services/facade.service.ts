@@ -36,6 +36,9 @@ export class FacadeService implements OnDestroy {
   navigateToPodium() {
     this.router.navigate(['/layout/podium'])
   }
+  navigateToRr() {
+    this.router.navigate(['/layout/rr'])
+  }
 
 
   getRouteToBreadcrumb() {

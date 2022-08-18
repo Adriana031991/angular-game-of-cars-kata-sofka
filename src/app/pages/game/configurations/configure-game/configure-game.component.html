@@ -7,11 +7,10 @@
       <div class="col-sm-9" *ngIf="listOfTracks$ | async as tracks">
         <nb-select
         placeholder="Choose the Track"
-        [(ngModel)]="selectedItem"
+        [(selected)]="selectedItem"
         status="info"
         formControlName="track"
         >
-          <nb-select-label> {{ selectedItem.name }} </nb-select-label>
           <nb-option
             *ngFor="let track of tracks "
             [value]="track"
@@ -66,7 +65,7 @@
 
 
   <div class="form-group row second--form" [ngClass]="{disable: isDisabledSecondForm}" >
-    <label class="label col-sm-3 col-form-label"
+    <label for="nameOfPlayer" class="label col-sm-3 col-form-label"
       >Write the name of Player</label
     >
     <div class="col-sm-9">
@@ -75,8 +74,10 @@
         nbInput
         status="info"
         placeholder="Write the name of Player"
-        #nameOfPlayer
+        id="nameOfPlayer"
         formControlName="nameOfPlayer"
+        (keyup.enter) = "enterPlayerKeyup($event)"
+
         />
       <div *ngIf="invalidField('nameOfPlayer')">
         <span class="lyricRed">please write a name</span>
@@ -112,7 +113,7 @@
       </button>
     </div>
 
-    <div class="table-center"  >
+    <!-- <div class="table-center"  >
       <table>
         <thead>
           <tr>
@@ -123,11 +124,14 @@
         <tbody>
           <tr *ngFor="let player of players ; let i = index">
             <td>{{i+1}}</td>
-            <td>{{ player|json }}</td>
+            <td>{{ player.driver.name }}</td>
           </tr>
         </tbody>
       </table>
-    </div>
+    </div> -->
+
+
+
   </div>
 
 

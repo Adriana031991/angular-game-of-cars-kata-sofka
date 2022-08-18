@@ -1,3 +1,5 @@
+
+
 @use 'themes' as *;
 
 @use '@nebular/theme/styles/globals' as *;
@@ -19,7 +21,7 @@ table {
   text-align: center;
   border-collapse:collapse;
   padding:5px;
-  width: 40%;
+  // width: 40%;
 
   th {
     border:1px solid #C0C0C0;
@@ -76,3 +78,6 @@ nb-card-body {
       }
 
 }
+
+html, body { height: 100%; }
+body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }

@@ -1,4 +1,4 @@
-import { Injectable } from '@angular/core';
+import { ChangeDetectorRef, Injectable } from '@angular/core';
 import { BehaviorSubject } from 'rxjs';
 import { ResultGame } from '../common/models/results-game.interface';
 
@@ -6,6 +6,7 @@ import { ResultGame } from '../common/models/results-game.interface';
   providedIn: 'root'
 })
 export class SharedService {
+
 
   private dataMenuGameSubject = new BehaviorSubject({});
   dataMenuGame$ = this.dataMenuGameSubject.asObservable();
@@ -17,14 +18,13 @@ export class SharedService {
   configureFormSubject$ = this.configureFormSubject.asObservable();
 
 
-  constructor() { }
+
 
   sharedResultGame(item:ResultGame) {
     this.resultGameSubject.next(item);
   }
 
   sharedMenuGame(item:string) {
-    console.log('service', item)
     this.dataMenuGameSubject.next(item);
   }
 
