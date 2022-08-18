@@ -24,7 +24,7 @@ interface FSEntry {
   styleUrls: ['./tree-grid.component.scss'],
 })
 export class TreeGridComponent {
-
+// informacion del intento de adriana
   destroyConfigure$ = new Subject<void>();
   drivers: Car[]= [];
   id = 0;
@@ -57,6 +57,7 @@ export class TreeGridComponent {
 
   dataSource1!: NbTreeGridDataSource<Car>;
 
+  // copie y pegue libreria
   // customColumn = 'a';
   defaultColumns = [ 'size', 'kind', 'items' ];
   allColumns = [ 'name', ...this.defaultColumns ];
@@ -71,16 +72,16 @@ export class TreeGridComponent {
     private facadeService: FacadeService,
     private changeDetection: ChangeDetectorRef,
     private dataSourceBuilder: NbTreeGridDataSourceBuilder<any>) {
-    this.dataSource = this.dataSourceBuilder.create(this.data);
+    this.dataSource = this.dataSourceBuilder.create(this.data);//libreria
 
-    this.dataSource1 = this.dataSourceBuilder.create(this.data1);
+    this.dataSource1 = this.dataSourceBuilder.create(this.data1);//adriana
   }
-
+// libreria
   updateSort(sortRequest: NbSortRequest): void {
     this.sortColumn = sortRequest.column;
     this.sortDirection = sortRequest.direction;
   }
-
+// libreria
   getSortDirection(column: string): NbSortDirection {
     // console.log('heey', this.dataSource1)
     if (this.sortColumn === column) {
@@ -89,9 +90,11 @@ export class TreeGridComponent {
     return NbSortDirection.NONE;
   }
 
+  //adriana
   private data1: TreeNode<Car>[] = [{data:{id: 1, nameCar:'this.nameCar', driver:{id:0, name:'this.driver'}, routeMts:0, winner: false}}];
   // private data1: TreeNode<Car>[] = [{data:{id: this.id, nameCar:this.nameCar, driver: this.driver, routeMts:this.routeMts, winner: this.winner}}];
 
+  //libreria
   private data: TreeNode<FSEntry>[] = [
     {
       data: { name: 'Projects', size: '1.8 MB', items: 5, kind: 'dir' },
@@ -126,6 +129,8 @@ export class TreeGridComponent {
   }
 }
 
+
+// libreria
 @Component({
   selector: 'ngx-fs-icon',
   template: `
