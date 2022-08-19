@@ -1,9 +1,9 @@
-import { ChangeDetectorRef, Component, Input } from '@angular/core';
+import { ChangeDetectorRef, Component, Input, OnInit } from '@angular/core';
 import { NbSortDirection, NbSortRequest, NbTreeGridDataSource, NbTreeGridDataSourceBuilder } from '@nebular/theme';
 import { FacadeService } from 'src/app/pages/services/facade.service';
 import { SharedService } from 'src/app/services/shared.service';
 import { Subject, takeUntil } from 'rxjs';
-import { Car } from 'src/app/common/models/results-game.interface';
+import { Car, Player } from 'src/app/common/models/results-game.interface';
 
 interface TreeNode<T> {
   data: T;
@@ -18,47 +18,50 @@ interface FSEntry {
   items?: number;
 }
 
+interface DataTable {
+  name: string;
+
+}
+
 @Component({
   selector: 'ngx-tree-grid',
   templateUrl: './tree-grid.component.html',
   styleUrls: ['./tree-grid.component.scss'],
 })
-export class TreeGridComponent {
+export class TreeGridComponent implements OnInit {
 // informacion del intento de adriana
   destroyConfigure$ = new Subject<void>();
-  drivers: Car[]= [];
-  id = 0;
-  nameCar='';
-  driver= {id:0, name:''};
-  routeMts=0;
-  winner=false;
+
+  drivers: any[]= [];
 
   configureForm$ = this.sharedService.configureFormSubject$
     .pipe(takeUntil(this.destroyConfigure$))
-    .subscribe( (result:any) => {
+    .subscribe(
+       (result:any) => {
+      const {dataDrivers} = result;
 
-      const {state,data,dataDrivers} = result;
-      // dataDrivers.forEach((data:any)=> {
-
-      //   this.id = data.id;
-      //   this.nameCar = data.nameCar;
-      //   this.driver = data.driver;
-      //   this.routeMts = data.routeMts;
-      //   this.winner = data.winner;
-      // })
-      this.drivers = dataDrivers;
+      this.drivers= dataDrivers.map((res:any) => res.driver.name);
+      // this.drivers= dataDrivers;
+      this.dataSource1 = this.dataSourceBuilder.create(this.data1);//adriana
       this.changeDetection.detectChanges();
-      console.log('shared data form to table', result)
-    })
 
 
-  defaultColumns1 = [ 'id', 'nameCar', 'driver', 'routeMts', 'winner'];
+    }
+    )
+
+    // a = this.drivers.map(res => res.name)
+  defaultColumns1 = [ 'name'];
   allColumns1 = [ 'N°', ...this.defaultColumns1 ];
 
-  dataSource1!: NbTreeGridDataSource<Car>;
+  dataSource1!: NbTreeGridDataSource<DataTable>;
+
+  //adriana  aqui esta el meollo
+  private data1: TreeNode<DataTable>[] = [{data:{ name:'prueba'}}];
+  // private data1: TreeNode<Car>[] = [{data:{id: this.id, nameCar:this.nameCar, driver: this.driver, routeMts:this.routeMts, winner: this.winner}}];
+
 
   // copie y pegue libreria
-  // customColumn = 'a';
+
   defaultColumns = [ 'size', 'kind', 'items' ];
   allColumns = [ 'name', ...this.defaultColumns ];
 
@@ -69,17 +72,19 @@ export class TreeGridComponent {
 
   constructor(
     private sharedService: SharedService,
-    private facadeService: FacadeService,
     private changeDetection: ChangeDetectorRef,
     private dataSourceBuilder: NbTreeGridDataSourceBuilder<any>) {
+    }
+    ngOnInit(): void {
     this.dataSource = this.dataSourceBuilder.create(this.data);//libreria
 
-    this.dataSource1 = this.dataSourceBuilder.create(this.data1);//adriana
   }
 // libreria
   updateSort(sortRequest: NbSortRequest): void {
     this.sortColumn = sortRequest.column;
     this.sortDirection = sortRequest.direction;
+    console.log('shared data form to table', this.drivers)
+
   }
 // libreria
   getSortDirection(column: string): NbSortDirection {
@@ -90,9 +95,6 @@ export class TreeGridComponent {
     return NbSortDirection.NONE;
   }
 
-  //adriana
-  private data1: TreeNode<Car>[] = [{data:{id: 1, nameCar:'this.nameCar', driver:{id:0, name:'this.driver'}, routeMts:0, winner: false}}];
-  // private data1: TreeNode<Car>[] = [{data:{id: this.id, nameCar:this.nameCar, driver: this.driver, routeMts:this.routeMts, winner: this.winner}}];
 
   //libreria
   private data: TreeNode<FSEntry>[] = [
