@@ -1,6 +1,6 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
-import { TreeGridComponent } from './game/configurations/tree-grid/tree-grid.component';
+import { TableComponent } from './game/configurations/table/table.component';
 import { GameComponent } from './game/game.component';
 import { RaceDialogComponent } from './game/race-dialog/race-dialog.component';
 import { HomeComponent } from './home/home.component';
@@ -15,7 +15,7 @@ const routes: Routes = [
     { path: 'home', component: HomeComponent, data: { breadcrumb: 'Home'} },
     { path: 'new-game', component: GameComponent, data: { breadcrumb: 'New-game'} },
     { path: 'podium', component: PodiumComponent, data: { breadcrumb: 'Podium'} },
-  { path: 'rr', component: TreeGridComponent},
+  { path: 'rr', component: TableComponent},
 
     {
       path: '',

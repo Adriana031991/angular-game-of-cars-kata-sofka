@@ -51,8 +51,7 @@ export class CreateCircuitComponent implements OnInit {
 
   enterDataLane() {
 //una vez escrito la cantidad de lanes,
-//habilite los campos name of lane y car,
-//este no es necesario obligarlo
+//habilite los campos name of lane y car,este no es necesario obligarlo
 
 
   }

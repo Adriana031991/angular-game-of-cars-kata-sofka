@@ -23,7 +23,7 @@ export class SharedService {
   sharedResultGame(item:ResultGame) {
     this.resultGameSubject.next(item);
   }
-
+ 
   sharedMenuGame(item:string) {
     this.dataMenuGameSubject.next(item);
   }
