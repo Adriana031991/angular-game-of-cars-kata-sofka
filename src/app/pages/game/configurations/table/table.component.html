@@ -1,33 +1,45 @@
-
 <nb-card>
   <nb-card-body>
-
-
     <table [nbTreeGrid]="dataSource1" [nbSort]="dataSource1" (sort)="updateSort($event)">
-
       <tr nbTreeGridHeaderRow *nbTreeGridHeaderRowDef="allColumns1"></tr>
-      <tr nbTreeGridRow *nbTreeGridRowDef="let row ; columns: allColumns1"></tr>
+      <tr nbTreeGridRow *nbTreeGridRowDef="let row; columns: allColumns1"></tr>
 
       <ng-container [nbTreeGridColumnDef]="allColumns1[0]">
         <th nbTreeGridHeaderCell [nbSortHeader]="getSortDirection(allColumns1[0])" *nbTreeGridHeaderCellDef>
-          {{allColumns1[0]}}
+          {{ allColumns1[0] }}
         </th>
         <td nbTreeGridCell *nbTreeGridCellDef="let row; let i = index">
-          {{i+1}}
+          {{ i + 1 }}
         </td>
       </ng-container>
 
-
-      <ng-container *ngFor="let column of defaultColumns1; let index = index"
-                    [nbTreeGridColumnDef]="column"
-                    >
+      <ng-container *ngFor="let column of defaultColumns1.slice(0,1); let index = index" [nbTreeGridColumnDef]="column">
         <th nbTreeGridHeaderCell [nbSortHeader]="getSortDirection(column)" *nbTreeGridHeaderCellDef>
-          {{column}}
+          {{ column | titlecase }}
         </th>
-        <td nbTreeGridCell *nbTreeGridCellDef="let row">{{row.data[column]}}</td>
+        <td nbTreeGridCell *nbTreeGridCellDef="let row">
+          {{ row.data[column] }}
+
+        </td>
+
       </ng-container>
 
-    </table>
+      <ng-container *ngFor="let column of defaultColumns1.slice(1,2)" [nbTreeGridColumnDef]="column">
+        <th nbTreeGridHeaderCell [nbSortHeader]="getSortDirection(column)" *nbTreeGridHeaderCellDef>
+          {{ column | titlecase }}
+        </th>
+        <td nbTreeGridCell *nbTreeGridCellDef="let row">
 
+
+          <nb-icon icon="more-vertical-outline" [nbContextMenu]="items" nbContextMenuTrigger="hover" aria-hidden="true">
+
+          </nb-icon>
+
+        </td>
+
+      </ng-container>
+
+
+    </table>
   </nb-card-body>
 </nb-card>

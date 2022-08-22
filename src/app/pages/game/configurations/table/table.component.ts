@@ -1,5 +1,6 @@
 import { ChangeDetectorRef, Component, OnDestroy, OnInit } from '@angular/core';
 import {
+  NbIconLibraries,
   NbSortDirection,
   NbSortRequest,
   NbTreeGridDataSource,
@@ -34,7 +35,7 @@ export class TableComponent implements OnInit, OnDestroy {
       this.changeDetection.detectChanges();
     });
 
-  defaultColumns1 = ['name'];
+  defaultColumns1 = ['name', 'actions'];
   allColumns1 = ['N°', ...this.defaultColumns1];
 
   dataSource1!: NbTreeGridDataSource<DataTable>;
@@ -42,11 +43,27 @@ export class TableComponent implements OnInit, OnDestroy {
   sortColumn: string = '';
   sortDirection: NbSortDirection = NbSortDirection.NONE;
 
+  items = [{ title: 'Profile' }, { title: 'Log out' }];
+  
   constructor(
     private sharedService: SharedService,
     private changeDetection: ChangeDetectorRef,
-    private dataSourceBuilder: NbTreeGridDataSourceBuilder<any>
-  ) {}
+    private dataSourceBuilder: NbTreeGridDataSourceBuilder<any>,
+    private iconLibraries: NbIconLibraries
+  ) {
+    this.iconLibraries.registerFontPack('font-awesome', { packClass: 'fa', iconClassPrefix: 'fa' });
+    this.iconLibraries.registerFontPack('solid', {packClass: 'fas', iconClassPrefix: 'fa'});
+    this.iconLibraries.registerFontPack('regular', {packClass: 'far', iconClassPrefix: 'fa'});
+    this.iconLibraries.registerFontPack('light', {packClass: 'fal', iconClassPrefix: 'fa'});
+    this.iconLibraries.registerFontPack('duotone', {packClass: 'fad', iconClassPrefix: 'fa'});
+    this.iconLibraries.registerFontPack('brands', {packClass: 'fab', iconClassPrefix: 'fa'});
+
+    // this.iconLibraries.setDefaultPack('duotone');
+    // this.iconLibraries.registerFontPack('font-awesome', {ligature: true});
+    // this.iconLibraries.registerFontPack('far', { packClass: 'far', iconClassPrefix: 'fa' });
+    // this.iconLibraries.registerFontPack('fab', { packClass: 'fab', iconClassPrefix: 'fa' });
+    // this.iconLibraries.setDefaultPack('font-awesome');
+  }
 
   ngOnDestroy(): void {
     this.destroyConfigure$.next();

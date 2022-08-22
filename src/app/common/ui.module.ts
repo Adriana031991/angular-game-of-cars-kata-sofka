@@ -17,12 +17,14 @@ import {
   NbSelectModule,
   NbUserModule,
   NbTreeGridModule,
+  NbContextMenuModule,
 } from '@nebular/theme';
 
 const MODULES_NEBULAR = [
   NbActionsModule,
   NbButtonModule,
   NbCardModule,
+  NbContextMenuModule,
   NbEvaIconsModule,
   FontAwesomeModule,
   NbIconModule,
