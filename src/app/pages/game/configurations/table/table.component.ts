@@ -1,6 +1,8 @@
 import { ChangeDetectorRef, Component, OnDestroy, OnInit } from '@angular/core';
 import {
+  NbDialogService,
   NbIconLibraries,
+  NbMenuService,
   NbSortDirection,
   NbSortRequest,
   NbTreeGridDataSource,
@@ -9,6 +11,10 @@ import {
 import { SharedService } from 'src/app/services/shared.service';
 import { Subject, takeUntil } from 'rxjs';
 import { DataTable, TableNode } from 'src/app/common/models/table.interface';
+import { DeleteDialogComponent } from './delete-dialog/delete-dialog.component';
+import { FacadeService } from 'src/app/pages/services/facade.service';
+import { Driver } from 'src/app/common/models/player-interfaces';
+import { CallToBackendService } from 'src/app/services/call-to-backend.service';
 
 
 
@@ -24,12 +30,11 @@ export class TableComponent implements OnInit, OnDestroy {
   configureForm$ = this.sharedService.configureFormSubject$
     .pipe(takeUntil(this.destroyConfigure$))
     .subscribe((result: any) => {
+
       const { dataDrivers } = result;
-
       const newData: TableNode<DataTable>[] = dataDrivers.map((res: any) => ({
-        data: { name: res.driver.name },
+        data: { name: res.driver.name, id: res.driver.id },
       }));
-
       this.dataSource1.setData(newData);
 
       this.changeDetection.detectChanges();
@@ -37,19 +42,23 @@ export class TableComponent implements OnInit, OnDestroy {
 
   defaultColumns1 = ['name', 'actions'];
   allColumns1 = ['N°', ...this.defaultColumns1];
-
   dataSource1!: NbTreeGridDataSource<DataTable>;
-
   sortColumn: string = '';
   sortDirection: NbSortDirection = NbSortDirection.NONE;
 
-  items = [{ title: 'Profile' }, { title: 'Log out' }];
-  
+  itemsOfActionsTable = [
+    { title: 'Edit',icon: 'edit-outline' },
+    { title: 'Delete', icon: 'trash-2-outline'}
+  ];
+
   constructor(
     private sharedService: SharedService,
     private changeDetection: ChangeDetectorRef,
     private dataSourceBuilder: NbTreeGridDataSourceBuilder<any>,
-    private iconLibraries: NbIconLibraries
+    private iconLibraries: NbIconLibraries,
+    private nbMenuService: NbMenuService,
+    private server: CallToBackendService,
+    private facadeService: FacadeService
   ) {
     this.iconLibraries.registerFontPack('font-awesome', { packClass: 'fa', iconClassPrefix: 'fa' });
     this.iconLibraries.registerFontPack('solid', {packClass: 'fas', iconClassPrefix: 'fa'});
@@ -63,6 +72,8 @@ export class TableComponent implements OnInit, OnDestroy {
     // this.iconLibraries.registerFontPack('far', { packClass: 'far', iconClassPrefix: 'fa' });
     // this.iconLibraries.registerFontPack('fab', { packClass: 'fab', iconClassPrefix: 'fa' });
     // this.iconLibraries.setDefaultPack('font-awesome');
+
+
   }
 
   ngOnDestroy(): void {
@@ -72,7 +83,10 @@ export class TableComponent implements OnInit, OnDestroy {
 
   ngOnInit(): void {
     this.dataSource1 = this.dataSourceBuilder.create([]);
+
   }
+
+
 
   updateSort(sortRequest: NbSortRequest): void {
     this.sortColumn = sortRequest.column;
@@ -85,4 +99,18 @@ export class TableComponent implements OnInit, OnDestroy {
     }
     return NbSortDirection.NONE;
   }
+
+  edit(){
+    console.log('edit player')
+  }
+
+  delete(id:any){
+    console.log('delete player', id)
+
+    // this.facadeService.modalDialog('¿Do you want to permanently delete this driver?',DeleteDialogComponent ,this.driver)
+    this.server.deletePlayer(id).subscribe(data => console.log('delete?', data))
+
+  }
+
+
 }

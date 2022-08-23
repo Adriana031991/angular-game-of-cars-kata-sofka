@@ -6,4 +6,5 @@ export interface TableNode<T> {
 
 export interface DataTable {
   name: string;
+  id: any;
 }

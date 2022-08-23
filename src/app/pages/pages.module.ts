@@ -16,6 +16,7 @@ import { ConfigureGameComponent } from './game/configurations/configure-game/con
 import { ConfigurationsComponent } from './game/configurations/configurations.component';
 import { CreateCircuitComponent } from './game/configurations/create-circuit/create-circuit.component';
 import { TableComponent } from './game/configurations/table/table.component';
+import { DeleteDialogComponent } from './game/configurations/table/delete-dialog/delete-dialog.component';
 
 
 @NgModule({
@@ -30,6 +31,7 @@ import { TableComponent } from './game/configurations/table/table.component';
     ConfigurationsComponent,
     CreateCircuitComponent,
     TableComponent,
+    DeleteDialogComponent,
   ],
 
   imports: [

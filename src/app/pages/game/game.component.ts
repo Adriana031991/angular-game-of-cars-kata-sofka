@@ -5,6 +5,7 @@ import { Subject, takeUntil } from 'rxjs';
 import { SharedService } from 'src/app/services/shared.service';
 import { FacadeService } from '../services/facade.service';
 import { Car, Circuit } from 'src/app/common/models/results-game.interface';
+import { RaceDialogComponent } from './race-dialog/race-dialog.component';
 
 @Component({
   selector: 'app-game',
@@ -64,23 +65,23 @@ export class GameComponent implements OnInit, OnDestroy {
 
   startGame(){
 
-    this.facadeService.navigateToRr();
+    // this.facadeService.navigateToRr();
     // console.group('drivers', this.drivers,
     // 'number', this.numberOfPlayers, 'track', this.track)
 
 
-    // let circuitCarsDto = {
-    //   circuit: this.track,
-    //   cars: [...this.drivers]
-    // }
+    let circuitCarsDto = {
+      circuit: this.track,
+      cars: [...this.drivers]
+    }
     // console.log('que pasa game', circuitCarsDto)
 
-    // this.callBackend.startGame(circuitCarsDto).
-    // pipe(takeUntil(this.destroy$)).subscribe(result => {
-    //   this.sharedService.sharedResultGame(result)
-    // });
+    this.callBackend.startGame(circuitCarsDto).
+    pipe(takeUntil(this.destroy$)).subscribe(result => {
+      this.sharedService.sharedResultGame(result)
+    });
 
-    // this.facadeService.modalDialog('The race has finished');
+    this.facadeService.modalDialog('The race has finished', RaceDialogComponent);
 
   }
 

@@ -24,9 +24,13 @@ export class CallToBackendService {
     return this.http.post<DataPlayerInterface>( `${this.URL}/player`, newPlayer );
   }
 
+  deletePlayer(id:number):Observable<any>{
+    return this.http.post<any>( `${this.URL}/player`, id );
+
+  }
+
+
   listCircuits$ = this.http.get<ResultCircuit[]>( `${this.URL}/circuit`);
-
-
 
   saveCircuit(circuit: any) {
     return this.http.post( `${this.URL}/circuit`, circuit);

@@ -19,7 +19,7 @@ export interface DataPlayer {
   winner: boolean,
 }
 
-interface Driver {
+export interface Driver {
   id: number, name: string
 }
 

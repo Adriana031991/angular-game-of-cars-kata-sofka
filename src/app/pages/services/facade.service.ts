@@ -1,9 +1,10 @@
-import { Injectable, OnDestroy } from '@angular/core';
+import { Component, Injectable, OnDestroy, TemplateRef, Type } from '@angular/core';
 import { ActivationEnd, Router } from '@angular/router';
 import { NbDialogService, NbSidebarService } from '@nebular/theme';
 import { filter, map, Subject, takeUntil } from 'rxjs';
 import { RaceDialogComponent } from '../game/race-dialog/race-dialog.component';
 import { SharedService } from '../../services/shared.service';
+import { Driver } from 'src/app/common/models/player-interfaces';
 
 @Injectable({
   providedIn: 'root'
@@ -54,8 +55,12 @@ export class FacadeService implements OnDestroy {
       });
   }
 
-  modalDialog(message: string) {
-    this.dialogService.open(RaceDialogComponent, {
+  modalDialog(
+    message: string,
+    component: Type<{ title: string }> | TemplateRef<{ title: any }>
+  ) {
+
+    this.dialogService.open(component, {
       context: {
         title: message,
       },
