@@ -16,7 +16,7 @@ export class FacadeService implements OnDestroy {
   constructor(
     private sidebarService: NbSidebarService,
     private dialogService: NbDialogService,
-    private gameService: SharedService,
+    private sharedService: SharedService,
     private router: Router) {
     this.getRouteToBreadcrumb();
   }
@@ -51,7 +51,7 @@ export class FacadeService implements OnDestroy {
         map((event: ActivationEnd) => event.snapshot.data)
       )
       .subscribe(({ breadcrumb }) => {
-        this.gameService.sharedMenuGame(breadcrumb);
+        this.sharedService.sharedMenuGame(breadcrumb);
       });
   }
 

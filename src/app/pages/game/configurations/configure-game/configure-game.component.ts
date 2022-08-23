@@ -16,6 +16,7 @@ import { map, Subject, takeUntil } from 'rxjs';
 import { NewPlayer } from 'src/app/common/classes/new-player';
 import { DataPlayer } from 'src/app/common/models/player-interfaces';
 import { Circuit } from 'src/app/common/models/results-game.interface';
+import { shareDataConfig } from 'src/app/common/models/shared.interface';
 import { CallToBackendService } from 'src/app/services/call-to-backend.service';
 import { SharedService } from 'src/app/services/shared.service';
 
@@ -40,7 +41,6 @@ export class ConfigureGameComponent implements OnInit, OnDestroy {
 
   });
 
-  nameOfGame =      this.configureGameForm.controls['nameOfGame'];
   nameOfPlayer =    this.configureGameForm.controls['nameOfPlayer']
   numberOfPlayers = this.configureGameForm.controls['numberOfPlayers'];
   track =           this.configureGameForm.controls['track'];
@@ -141,7 +141,7 @@ export class ConfigureGameComponent implements OnInit, OnDestroy {
   }
 
   sharedData() {
-    const data: any = {
+    const data: shareDataConfig = {
       state: true,
       data: this.configureGameForm.value,
       dataDrivers: this.players,
@@ -150,3 +150,5 @@ export class ConfigureGameComponent implements OnInit, OnDestroy {
     // console.log('sharedData', data);
   }
 }
+
+

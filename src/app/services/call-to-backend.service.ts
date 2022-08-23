@@ -2,7 +2,7 @@ import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { environment } from 'src/environments/environment';
-import { NewPlayerInterface, DataPlayerInterface } from '../common/models/player-interfaces';
+import { NewPlayerInterface, DataPlayerInterface, Driver, ResponseUpdatePlayer } from '../common/models/player-interfaces';
 import { Circuit, DataStartGame, ResultCircuit, ResultGame } from '../common/models/results-game.interface';
 
 
@@ -25,8 +25,8 @@ export class CallToBackendService {
   }
 
 
-  updatePlayer(player:NewPlayerInterface):Observable<DataPlayerInterface> {
-    return this.http.put<DataPlayerInterface>( `${this.URL}/player`, player );
+  updatePlayer(player:NewPlayerInterface):Observable<ResponseUpdatePlayer> {
+    return this.http.put<ResponseUpdatePlayer>( `${this.URL}/player`, player );
   }
 
   deletePlayer(id:number):Observable<any>{
@@ -39,6 +39,14 @@ export class CallToBackendService {
 
   saveCircuit(circuit: any) {
     return this.http.post( `${this.URL}/circuit`, circuit);
+  }
+
+  updateCircuit(circuit: any) {
+    return this.http.post( `${this.URL}/circuit`, circuit);
+  } //pending
+
+  deleteCircuit(id: number) {
+    return this.http.delete( `${this.URL}/circuit/${id}`);
   }
 
 

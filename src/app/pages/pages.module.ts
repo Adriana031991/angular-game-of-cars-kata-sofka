@@ -45,10 +45,7 @@ import { EditDialogComponent } from './game/configurations/table/edit-dialog/edi
     ReactiveFormsModule,
     NbDialogModule.forChild(),
 
-  ],
-  providers: [
-    FormBuilder,
-
   ]
+
 })
 export class PagesModule { }
