@@ -9,7 +9,7 @@ import { PagesComponent } from './pages.component';
 import { NbDialogModule, NbMenuModule } from '@nebular/theme';
 import { ComponentsModule } from '../components/components.module';
 import { PodiumComponent } from './podium/podium.component';
-import { ReactiveFormsModule } from '@angular/forms';
+import { FormBuilder, FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { RaceDialogComponent } from './game/race-dialog/race-dialog.component';
 import { PathNotFoundComponent } from './path-not-found/path-not-found.component';
 import { ConfigureGameComponent } from './game/configurations/configure-game/configure-game.component';
@@ -17,6 +17,7 @@ import { ConfigurationsComponent } from './game/configurations/configurations.co
 import { CreateCircuitComponent } from './game/configurations/create-circuit/create-circuit.component';
 import { TableComponent } from './game/configurations/table/table.component';
 import { DeleteDialogComponent } from './game/configurations/table/delete-dialog/delete-dialog.component';
+import { EditDialogComponent } from './game/configurations/table/edit-dialog/edit-dialog.component';
 
 
 @NgModule({
@@ -32,6 +33,7 @@ import { DeleteDialogComponent } from './game/configurations/table/delete-dialog
     CreateCircuitComponent,
     TableComponent,
     DeleteDialogComponent,
+    EditDialogComponent,
   ],
 
   imports: [
@@ -39,9 +41,14 @@ import { DeleteDialogComponent } from './game/configurations/table/delete-dialog
     PagesRoutingModule,
     UiModule,
     ComponentsModule,
+    FormsModule,
     ReactiveFormsModule,
     NbDialogModule.forChild(),
 
   ],
+  providers: [
+    FormBuilder,
+
+  ]
 })
 export class PagesModule { }

@@ -1,5 +1,6 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
+import { EditDialogComponent } from './game/configurations/table/edit-dialog/edit-dialog.component';
 import { TableComponent } from './game/configurations/table/table.component';
 import { GameComponent } from './game/game.component';
 import { RaceDialogComponent } from './game/race-dialog/race-dialog.component';
@@ -15,7 +16,7 @@ const routes: Routes = [
     { path: 'home', component: HomeComponent, data: { breadcrumb: 'Home'} },
     { path: 'new-game', component: GameComponent, data: { breadcrumb: 'New-game'} },
     { path: 'podium', component: PodiumComponent, data: { breadcrumb: 'Podium'} },
-  { path: 'rr', component: TableComponent},
+  { path: 'rr', component: EditDialogComponent},
 
     {
       path: '',

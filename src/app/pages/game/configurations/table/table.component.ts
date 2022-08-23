@@ -15,6 +15,7 @@ import { DeleteDialogComponent } from './delete-dialog/delete-dialog.component';
 import { FacadeService } from 'src/app/pages/services/facade.service';
 import { Driver } from 'src/app/common/models/player-interfaces';
 import { CallToBackendService } from 'src/app/services/call-to-backend.service';
+import { EditDialogComponent } from './edit-dialog/edit-dialog.component';
 
 
 
@@ -60,12 +61,12 @@ export class TableComponent implements OnInit, OnDestroy {
     private server: CallToBackendService,
     private facadeService: FacadeService
   ) {
-    this.iconLibraries.registerFontPack('font-awesome', { packClass: 'fa', iconClassPrefix: 'fa' });
-    this.iconLibraries.registerFontPack('solid', {packClass: 'fas', iconClassPrefix: 'fa'});
-    this.iconLibraries.registerFontPack('regular', {packClass: 'far', iconClassPrefix: 'fa'});
-    this.iconLibraries.registerFontPack('light', {packClass: 'fal', iconClassPrefix: 'fa'});
-    this.iconLibraries.registerFontPack('duotone', {packClass: 'fad', iconClassPrefix: 'fa'});
-    this.iconLibraries.registerFontPack('brands', {packClass: 'fab', iconClassPrefix: 'fa'});
+    // this.iconLibraries.registerFontPack('font-awesome', { packClass: 'fa', iconClassPrefix: 'fa' });
+    // this.iconLibraries.registerFontPack('solid', {packClass: 'fas', iconClassPrefix: 'fa'});
+    // this.iconLibraries.registerFontPack('regular', {packClass: 'far', iconClassPrefix: 'fa'});
+    // this.iconLibraries.registerFontPack('light', {packClass: 'fal', iconClassPrefix: 'fa'});
+    // this.iconLibraries.registerFontPack('duotone', {packClass: 'fad', iconClassPrefix: 'fa'});
+    // this.iconLibraries.registerFontPack('brands', {packClass: 'fab', iconClassPrefix: 'fa'});
 
     // this.iconLibraries.setDefaultPack('duotone');
     // this.iconLibraries.registerFontPack('font-awesome', {ligature: true});
@@ -102,15 +103,12 @@ export class TableComponent implements OnInit, OnDestroy {
 
   edit(value:any){
     console.log('edit player', value)
+    this.facadeService.modalDialog('Editing Player',EditDialogComponent , value)
 
-    const body = {idDto:value.id, nameDto:value.name};
-    this.server.editPlayer(body).subscribe(data => console.log('edit?', data))
   }
 
   delete(id:any){
     console.log('delete player', id)
-
-    // this.facadeService.modalDialog('¿Do you want to permanently delete this driver?',DeleteDialogComponent ,this.driver)
     this.server.deletePlayer(id).subscribe(data => console.log('delete?', data))
 
   }

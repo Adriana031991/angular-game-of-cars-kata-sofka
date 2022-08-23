@@ -25,7 +25,7 @@ export class CallToBackendService {
   }
 
 
-  editPlayer(player:NewPlayerInterface):Observable<DataPlayerInterface> {
+  updatePlayer(player:NewPlayerInterface):Observable<DataPlayerInterface> {
     return this.http.put<DataPlayerInterface>( `${this.URL}/player`, player );
   }
 

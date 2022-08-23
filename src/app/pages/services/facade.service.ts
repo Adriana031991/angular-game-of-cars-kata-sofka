@@ -57,12 +57,14 @@ export class FacadeService implements OnDestroy {
 
   modalDialog(
     message: string,
-    component: Type<{ title: string }> | TemplateRef<{ title: any }>
+    component: Type<{ title: string, data?:any }> | TemplateRef<{ title: any, data?:any }>,
+    value?: any
   ) {
 
     this.dialogService.open(component, {
       context: {
         title: message,
+        data: value
       },
       closeOnBackdropClick: false,
       closeOnEsc: false,
