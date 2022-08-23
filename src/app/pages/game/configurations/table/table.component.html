@@ -29,7 +29,7 @@
           {{ column | titlecase }}
         </th>
         <td nbTreeGridCell *nbTreeGridCellDef="let row">
-          <nb-icon icon="edit-outline" aria-hidden="true" nbTooltip="Edit this player" nbTooltipPlacement="top" nbTooltipStatus="danger"></nb-icon>
+          <nb-icon (click)="edit(row.data)"icon="edit-outline" aria-hidden="true" nbTooltip="Edit this player" nbTooltipPlacement="top" nbTooltipStatus="danger"></nb-icon>
           <nb-icon (click)="delete(row.data.id)" icon="trash-2-outline" aria-hidden="true" nbTooltip="Delete this player" nbTooltipPlacement="top" nbTooltipStatus="danger" ></nb-icon>
 
         </td>

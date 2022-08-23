@@ -24,8 +24,13 @@ export class CallToBackendService {
     return this.http.post<DataPlayerInterface>( `${this.URL}/player`, newPlayer );
   }
 
+
+  editPlayer(player:NewPlayerInterface):Observable<DataPlayerInterface> {
+    return this.http.put<DataPlayerInterface>( `${this.URL}/player`, player );
+  }
+
   deletePlayer(id:number):Observable<any>{
-    return this.http.post<any>( `${this.URL}/player`, id );
+    return this.http.delete<any>( `${this.URL}/player/${id}` );
 
   }
 

@@ -100,8 +100,11 @@ export class TableComponent implements OnInit, OnDestroy {
     return NbSortDirection.NONE;
   }
 
-  edit(){
-    console.log('edit player')
+  edit(value:any){
+    console.log('edit player', value)
+
+    const body = {idDto:value.id, nameDto:value.name};
+    this.server.editPlayer(body).subscribe(data => console.log('edit?', data))
   }
 
   delete(id:any){
