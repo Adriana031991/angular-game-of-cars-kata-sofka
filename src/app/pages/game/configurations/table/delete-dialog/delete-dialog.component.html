@@ -4,11 +4,11 @@
       <nb-card-header>{{ title }}</nb-card-header>
       <nb-card-body>
         <nb-icon icon="alert-circle-outline"></nb-icon>
-        <p>Driver: {{driverId}}</p>
+        <p>Driver: {{data}}</p>
       </nb-card-body>
       <nb-card-footer>
         <button nbButton status="danger" shape="semi-round" (click)="delete()">Delete</button>
-        <button nbButton status="primary" shape="semi-round" (click)="goToPodium()">Cancel</button>
+        <button nbButton status="primary" shape="semi-round" (click)="cancel()">Cancel</button>
       </nb-card-footer>
     </nb-card>
 

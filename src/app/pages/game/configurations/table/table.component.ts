@@ -111,7 +111,7 @@ export class TableComponent implements OnInit, OnDestroy {
 
   delete(id:any){
     console.log('delete player', id)
-    this.server.deletePlayer(id).subscribe(data => console.log('delete?', data))
+    this.facadeService.modalDialog('Editing Player',DeleteDialogComponent , id)
 
   }
 

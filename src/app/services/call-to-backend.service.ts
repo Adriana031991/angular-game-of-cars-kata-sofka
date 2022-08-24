@@ -31,7 +31,6 @@ export class CallToBackendService {
 
   deletePlayer(id:number):Observable<any>{
     return this.http.delete<any>( `${this.URL}/player/${id}` );
-
   }
 
 

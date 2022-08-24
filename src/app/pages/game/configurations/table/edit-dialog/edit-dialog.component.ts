@@ -1,7 +1,7 @@
 import { Component, Input, OnInit, Optional } from '@angular/core';
 import { NbDialogRef } from '@nebular/theme';
-import { map, Subject, switchMap, takeUntil } from 'rxjs';
-import { DataPlayer, Driver, ResponseUpdatePlayer } from 'src/app/common/models/player-interfaces';
+import { Subject, takeUntil } from 'rxjs';
+import { DataPlayer, ResponseUpdatePlayer } from 'src/app/common/models/player-interfaces';
 import { shareDataConfig } from 'src/app/common/models/shared.interface';
 import { CallToBackendService } from 'src/app/services/call-to-backend.service';
 import { SharedService } from 'src/app/services/shared.service';
@@ -38,21 +38,24 @@ export class EditDialogComponent implements OnInit {
   savePlayer() {
     const body = { idDto: this.data.id, nameDto: this.data.name };
 
-    console.log('save', body);
+    this.server.updatePlayer(body).subscribe(
 
-    this.server.updatePlayer(body).subscribe((data: ResponseUpdatePlayer) => {
-      //forma de editar un objeto y retornarlo al array
-      this.drivers = this.drivers.map((resp: any) => {
-        if (resp.driver.id === data.data.id) {
-          resp.driver.name = data.data.name
-        }
-        return resp
-      })
+      {
+        next: (data: ResponseUpdatePlayer) => {
+          //forma de editar un objeto y retornarlo al array
+          this.drivers = this.drivers.map((resp: any) => {
+            if (resp.driver.id === data.data.id) {
+              resp.driver.name = data.data.name
+            }
+            return resp
+          })
 
-      this.sharedUpdateDate();
+          this.sharedUpdateDate();
 
-      this.ref.close();
-    }
+          this.ref.close();
+        },
+        error: (err) => { console.log}
+      }
 
     )
   }

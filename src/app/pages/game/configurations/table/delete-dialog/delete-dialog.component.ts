@@ -1,7 +1,10 @@
 import { ChangeDetectorRef, Component, Input, OnInit, Optional } from '@angular/core';
 import { NbDialogRef } from '@nebular/theme';
-import { Driver } from 'src/app/common/models/player-interfaces';
+import { Subject, takeUntil } from 'rxjs';
+import { DataPlayer, Driver } from 'src/app/common/models/player-interfaces';
+import { shareDataConfig } from 'src/app/common/models/shared.interface';
 import { CallToBackendService } from 'src/app/services/call-to-backend.service';
+import { SharedService } from 'src/app/services/shared.service';
 
 @Component({
   selector: 'app-delete-dialog',
@@ -11,29 +14,37 @@ import { CallToBackendService } from 'src/app/services/call-to-backend.service';
 export class DeleteDialogComponent implements OnInit {
 
   @Input() title!: string;
-  @Input() driverId!: any;
-  // @Input() driverName!: any;
+  @Input() data!: any;
+
+  destroyConfigure$ = new Subject<void>();
+  drivers: DataPlayer[] = [];
+
+  configureForm$ = this.sharedService.configureFormSubject$
+    .pipe(
+      takeUntil(this.destroyConfigure$))
+    .subscribe((resp: shareDataConfig) => (this.drivers = resp.dataDrivers as DataPlayer[]))
+
 
   constructor(
-
-    private changeDetection: ChangeDetectorRef,
+    private sharedService: SharedService,
+    private server: CallToBackendService,
     @Optional() protected ref: NbDialogRef<DeleteDialogComponent>,
   ) {
 
   }
   ngOnInit(): void {
-    this.changeDetection.detectChanges();
   }
 
-  goToPodium() {
-
+  cancel() {
     this.ref.close();
-
   }
 
   delete() {
-    console.log('id driver', this.driverId,  );
+    console.log('id driver', this.data,);
+    this.server.deletePlayer(this.data).subscribe(
+      {
+        next: (data) => { console.log('delete?', data) },
+        error: (err) => { console.log}
+      })
   }
-
-
 }
