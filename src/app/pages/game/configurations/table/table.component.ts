@@ -39,7 +39,6 @@ export class TableComponent implements OnInit, OnDestroy {
         data: { name: res.driver.name, id: res.driver.id },
       }));
       this.dataSource1.setData(newData);
-
       this.changeDetection.detectChanges();
     });
 
@@ -58,23 +57,10 @@ export class TableComponent implements OnInit, OnDestroy {
     private sharedService: SharedService,
     private changeDetection: ChangeDetectorRef,
     private dataSourceBuilder: NbTreeGridDataSourceBuilder<any>,
-    private iconLibraries: NbIconLibraries,
     private nbMenuService: NbMenuService,
     private server: CallToBackendService,
     private facadeService: FacadeService
   ) {
-    // this.iconLibraries.registerFontPack('font-awesome', { packClass: 'fa', iconClassPrefix: 'fa' });
-    // this.iconLibraries.registerFontPack('solid', {packClass: 'fas', iconClassPrefix: 'fa'});
-    // this.iconLibraries.registerFontPack('regular', {packClass: 'far', iconClassPrefix: 'fa'});
-    // this.iconLibraries.registerFontPack('light', {packClass: 'fal', iconClassPrefix: 'fa'});
-    // this.iconLibraries.registerFontPack('duotone', {packClass: 'fad', iconClassPrefix: 'fa'});
-    // this.iconLibraries.registerFontPack('brands', {packClass: 'fab', iconClassPrefix: 'fa'});
-
-    // this.iconLibraries.setDefaultPack('duotone');
-    // this.iconLibraries.registerFontPack('font-awesome', {ligature: true});
-    // this.iconLibraries.registerFontPack('far', { packClass: 'far', iconClassPrefix: 'fa' });
-    // this.iconLibraries.registerFontPack('fab', { packClass: 'fab', iconClassPrefix: 'fa' });
-    // this.iconLibraries.setDefaultPack('font-awesome');
 
 
   }

@@ -76,9 +76,9 @@
         placeholder="Write the name of Player"
         id="nameOfPlayer"
         formControlName="nameOfPlayer"
-        (keyup.enter) = "enterPlayerKeyup($event)"
 
         />
+        <!-- (keyup.enter) = "enterPlayerKeyup($event)" -->
       <div *ngIf="invalidField('nameOfPlayer')">
         <span class="lyricRed">please write a name</span>
       </div>

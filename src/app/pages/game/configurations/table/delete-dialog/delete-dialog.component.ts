@@ -1,7 +1,7 @@
-import { ChangeDetectorRef, Component, Input, OnInit, Optional } from '@angular/core';
+import { Component, Input, OnInit, Optional } from '@angular/core';
 import { NbDialogRef } from '@nebular/theme';
 import { Subject, takeUntil } from 'rxjs';
-import { DataPlayer, Driver } from 'src/app/common/models/player-interfaces';
+import { DataPlayer } from 'src/app/common/models/player-interfaces';
 import { shareDataConfig } from 'src/app/common/models/shared.interface';
 import { CallToBackendService } from 'src/app/services/call-to-backend.service';
 import { SharedService } from 'src/app/services/shared.service';
@@ -18,6 +18,7 @@ export class DeleteDialogComponent implements OnInit {
 
   destroyConfigure$ = new Subject<void>();
   drivers: DataPlayer[] = [];
+  drivers1: DataPlayer[] = [];
 
   configureForm$ = this.sharedService.configureFormSubject$
     .pipe(
@@ -43,8 +44,34 @@ export class DeleteDialogComponent implements OnInit {
     console.log('id driver', this.data,);
     this.server.deletePlayer(this.data).subscribe(
       {
-        next: (data) => { console.log('delete?', data) },
-        error: (err) => { console.log}
+        next: (value) => {
+          console.log('delete?', value)
+          this.drivers.map((item: any, index) => {
+            if(item.driver.id === this.data ){
+              this.drivers.splice(index, 1);
+            }
+          })
+
+          console.log('item',this.drivers)
+          this.sharedUpdateDate();
+          this.ref.close();
+        },
+
+        error: (err) => { console.log }
       })
+}
+
+
+  private sharedUpdateDate() {
+    const value: shareDataConfig = {
+      state: true,
+      data: {
+        track: '',
+        numberOfPlayers: 0,
+        nameOfPlayer: ''
+      },
+      dataDrivers: this.drivers,
+    };
+    this.sharedService.SharedConfigureForm(value);
   }
 }

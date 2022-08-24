@@ -5,12 +5,7 @@ import {
   OnDestroy,
   OnInit,
 } from '@angular/core';
-import {
-  FormBuilder,
-  FormGroup,
-  Validators,
-} from '@angular/forms';
-import { NbTreeGridDataSource, NbTreeGridDataSourceBuilder } from '@nebular/theme';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 
 import { map, Subject, takeUntil } from 'rxjs';
 import { NewPlayer } from 'src/app/common/classes/new-player';
@@ -19,7 +14,6 @@ import { Circuit } from 'src/app/common/models/results-game.interface';
 import { shareDataConfig } from 'src/app/common/models/shared.interface';
 import { CallToBackendService } from 'src/app/services/call-to-backend.service';
 import { SharedService } from 'src/app/services/shared.service';
-
 
 @Component({
   selector: 'app-configure-game',
@@ -35,15 +29,14 @@ export class ConfigureGameComponent implements OnInit, OnDestroy {
   isDisabledFirstForm: boolean = false;
 
   public configureGameForm: FormGroup = this.fb.group({
-    track:            ['', [Validators.required, Validators.minLength(1)]],
-    numberOfPlayers:  [, [Validators.required, Validators.min(3)]],
-    nameOfPlayer:     [],
-
+    track: ['', [Validators.required, Validators.minLength(1)]],
+    numberOfPlayers: [, [Validators.required, Validators.min(3)]],
+    nameOfPlayer: ['', [Validators.required, Validators.min(3)]],
   });
 
-  nameOfPlayer =    this.configureGameForm.controls['nameOfPlayer']
+  nameOfPlayer = this.configureGameForm.controls['nameOfPlayer'];
   numberOfPlayers = this.configureGameForm.controls['numberOfPlayers'];
-  track =           this.configureGameForm.controls['track'];
+  track = this.configureGameForm.controls['track'];
 
   destroy$ = new Subject<void>();
 
@@ -58,10 +51,21 @@ export class ConfigureGameComponent implements OnInit, OnDestroy {
     private fb: FormBuilder,
     private sharedService: SharedService,
     private callBackend: CallToBackendService,
-    private changeDetection: ChangeDetectorRef,
-  ) {}
+    private changeDetection: ChangeDetectorRef
+  ) { }
 
-  ngOnInit(): void {}
+  ngOnInit(): void {
+    this.configureGameForm.get(['track', 'numberOfPlayers'])?.valueChanges.subscribe((checkValue) => {
+        const name = this.configureGameForm.get('nameOfPlayer');
+        if (checkValue) {
+          name?.setValidators([Validators.required, Validators.minLength(3)]);
+        } else {
+          name?.clearValidators();
+        }
+        name?.updateValueAndValidity();
+      });
+    console.log('formulario', this.configureGameForm.value);
+  }
 
   ngOnDestroy(): void {
     this.destroy$.next();
@@ -69,15 +73,8 @@ export class ConfigureGameComponent implements OnInit, OnDestroy {
   }
 
   openFieldName() {
-
-    const name = this.nameOfPlayer;
-    name?.setValidators([Validators.required, Validators.min(3)]);
-    name?.updateValueAndValidity();
-
     this.isDisabledSecondForm = false;
     this.isDisabledFirstForm = true;
-
-
   }
 
   resetNameOfPlayerForm() {
@@ -103,41 +100,38 @@ export class ConfigureGameComponent implements OnInit, OnDestroy {
     );
   }
 
-  disableButtonEntryPlayer() {
-    return (
-      this.nameOfPlayer.invalid ||
-      this.players.length ===
-        this.numberOfPlayers.value
-    );
-  }
 
-  disableButtonNext() {
-    return (
-      this.track.invalid ||
-      this.numberOfPlayers.invalid
-    );
-  }
 
-  enterPlayerKeyup(value: any) {
-    return this.enterPlayer();
-
-  }
-    enterPlayer() {
-
+  // enterPlayerKeyup(value: any) {
+  //   return this.enterPlayer();
+  // }
+  enterPlayer() {
     const player = new NewPlayer(0, this.nameOfPlayer.value);
     this.callBackend
       .addNewPlayer(player)
       .pipe(takeUntil(this.destroy$))
-      .subscribe( {
-        next:
-        (resp) => {
+      .subscribe({
+        next: (resp) => {
           this.players = [...this.players, resp.data];
           this.sharedData();
           this.changeDetection.detectChanges();
-        }
+        },
+        error: (err) => {
+          console.log;
+        },
       });
-      this.resetNameOfPlayerForm()
+    this.resetNameOfPlayerForm();
+  }
 
+  disableButtonEntryPlayer() {
+    return (
+      this.nameOfPlayer.invalid ||
+      this.players.length === this.numberOfPlayers.value
+    );
+  }
+
+  disableButtonNext() {
+    return this.track.invalid || this.numberOfPlayers.invalid;
   }
 
   sharedData() {
@@ -150,5 +144,3 @@ export class ConfigureGameComponent implements OnInit, OnDestroy {
     // console.log('sharedData', data);
   }
 }
-
-
