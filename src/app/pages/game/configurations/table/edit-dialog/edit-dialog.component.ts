@@ -16,16 +16,16 @@ export class EditDialogComponent implements OnInit {
   @Input() data!: any;
 
   destroyConfigure$ = new Subject<void>();
-  drivers: DataPlayer[]  = [];
+  drivers: DataPlayer[] = [];
 
   configureForm$ = this.sharedService.configureFormSubject$
     .pipe(
       takeUntil(this.destroyConfigure$))
-    .subscribe( (resp: shareDataConfig) => (this.drivers =  resp.dataDrivers as DataPlayer[]))
+    .subscribe((resp: shareDataConfig) => (this.drivers = resp.dataDrivers as DataPlayer[]))
 
 
   constructor(
-    private sharedService:SharedService,
+    private sharedService: SharedService,
     private server: CallToBackendService,
     @Optional() protected ref: NbDialogRef<EditDialogComponent>,
   ) { }
@@ -35,45 +35,43 @@ export class EditDialogComponent implements OnInit {
 
   }
 
-  savePlayer(){
-    const body = {idDto:this.data.id, nameDto:this.data.name};
+  savePlayer() {
+    const body = { idDto: this.data.id, nameDto: this.data.name };
 
     console.log('save', body);
 
     this.server.updatePlayer(body).subscribe((data: ResponseUpdatePlayer) => {
-
-      console.log('data', data)
-      let a = this.drivers?.find((d) => d.driver.id === data.data.id)
-
-      if (a != undefined && this.drivers.length > 0) {
-        a.driver.name = data.data.name
-      }
       //forma de editar un objeto y retornarlo al array
-
       this.drivers = this.drivers.map((resp: any) => {
         if (resp.driver.id === data.data.id) {
           resp.driver.name = data.data.name
-
         }
         return resp
       })
 
-      const value: shareDataConfig = {
-        state: true,
-        data: {track: '',
-          numberOfPlayers: 0,
-          nameOfPlayer: ''},
-        dataDrivers: this.drivers,
-      };
-      this.sharedService.SharedConfigureForm(value)
-      console.log('edit?', data)});
+      this.sharedUpdateDate();
 
-    this.ref.close();
+      this.ref.close();
+    }
 
+    )
   }
 
   cancel() {
     this.ref.close();
 
+  }
+
+  private sharedUpdateDate() {
+    const value: shareDataConfig = {
+      state: true,
+      data: {
+        track: '',
+        numberOfPlayers: 0,
+        nameOfPlayer: ''
+      },
+      dataDrivers: this.drivers,
+    };
+    this.sharedService.SharedConfigureForm(value);
   }
 }
