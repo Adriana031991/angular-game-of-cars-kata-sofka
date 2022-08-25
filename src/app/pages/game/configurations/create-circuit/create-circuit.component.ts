@@ -14,8 +14,8 @@ export class CreateCircuitComponent implements OnInit {
     nameOfTrack: ['', [Validators.required, Validators.min(3)]],
     kilometers: [, [Validators.required, Validators.min(1000)]],
     lanes: ['', [Validators.required, Validators.min(3)]],
-    nameOfLane: [],
-    car: [] //no necesario oligarlo
+    nameOfLane: ['', [Validators.min(3)]],
+    car: [null] //no necesario oligarlo
   });
 
   kilometers = this.createCircuitForm.controls['kilometers'];

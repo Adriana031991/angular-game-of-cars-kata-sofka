@@ -1,2 +1,24 @@
-<app-create-circuit></app-create-circuit>
-<app-configure-game></app-configure-game>
+
+<!-- <div class="column"> -->
+  <div class="row">
+    <div class="col-sm-6">
+    <nb-card status="success">
+      <nb-card-header>Configure you game</nb-card-header>
+
+      <app-create-circuit></app-create-circuit>
+      <app-configure-game></app-configure-game>
+      <nb-card-footer *ngIf="gameStarted">
+        <button
+          nbButton
+          status="primary"
+          shape="semi-round"
+          [disabled]="disableButton()"
+          (click)="startGame()"
+        >
+          start Game
+        </button>
+      </nb-card-footer>
+    </nb-card>
+  </div>
+</div>
+<!-- </div> -->

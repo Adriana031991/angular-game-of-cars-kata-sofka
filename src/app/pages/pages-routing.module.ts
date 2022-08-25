@@ -15,9 +15,11 @@ const routes: Routes = [
   component: PagesComponent,
   children: [
     { path: 'home', component: HomeComponent, data: { breadcrumb: 'Home'} },
-    { path: 'new-game', component: GameComponent, data: { breadcrumb: 'New-game'} },
+    { path: 'new-game', data: { breadcrumb: 'New-game'},
+        loadChildren: () => import('./game/configurations/configuratios.module').then((m) => m.ConfiguratiosModule) },
+
     { path: 'podium', component: PodiumComponent, data: { breadcrumb: 'Podium'} },
-  { path: 'rr', component: DeleteDialogComponent},
+    { path: 'rr', component: DeleteDialogComponent},
 
     {
       path: '',

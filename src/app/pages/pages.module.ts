@@ -18,6 +18,7 @@ import { CreateCircuitComponent } from './game/configurations/create-circuit/cre
 import { TableComponent } from './game/configurations/table/table.component';
 import { DeleteDialogComponent } from './game/configurations/table/delete-dialog/delete-dialog.component';
 import { EditDialogComponent } from './game/configurations/table/edit-dialog/edit-dialog.component';
+import { ConfiguratiosModule } from './game/configurations/configuratios.module';
 
 
 @NgModule({
@@ -28,12 +29,12 @@ import { EditDialogComponent } from './game/configurations/table/edit-dialog/edi
     PodiumComponent,
     RaceDialogComponent,
     PathNotFoundComponent,
-    ConfigureGameComponent,
-    ConfigurationsComponent,
-    CreateCircuitComponent,
-    TableComponent,
-    DeleteDialogComponent,
-    EditDialogComponent,
+    // ConfigureGameComponent,
+    // ConfigurationsComponent,
+    // CreateCircuitComponent,
+    // TableComponent,
+    // DeleteDialogComponent,
+    // EditDialogComponent,
   ],
 
   imports: [
@@ -44,7 +45,7 @@ import { EditDialogComponent } from './game/configurations/table/edit-dialog/edi
     FormsModule,
     ReactiveFormsModule,
     NbDialogModule.forChild(),
-
+    ConfiguratiosModule
   ]
 
 })
