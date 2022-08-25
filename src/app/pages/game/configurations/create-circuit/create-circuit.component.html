@@ -1,131 +1,66 @@
 <div class="col-6 col-sm-4">
 
-<form [formGroup]="createCircuitForm" >
-  <!-- -->
-  <!-- class="first--form" [ngClass]="{disable: isDisabledFirstForm}" -->
+  <form [formGroup]="createCircuitForm">
+    <!-- -->
+    <!-- class="first--form" [ngClass]="{disable: isDisabledFirstForm}" -->
 
 
-    <div class="form-group row "  >
+    <div class="form-group row ">
       <!-- [ngClass]="{disable: isDisabledSecondForm}" -->
-      <label class="label col-sm-3 col-form-label"
-        >Name of Track</label
-      >
+      <label class="label col-sm-3 col-form-label">Name of Track</label>
       <div class="col-sm-9">
-        <input
-          type="text"
-          nbInput
-          status="info"
-          placeholder="Write the name of Track"
-          formControlName="nameOfTrack"
-          />
+        <input type="text" nbInput status="info" placeholder="Write the name of Track" formControlName="nameOfTrack" />
         <div *ngIf="invalidField('nameOfTrack')">
           <span class="lyricRed">please write a number</span>
         </div>
       </div>
 
-    <div class="form-group row "  >
-      <label class="label col-sm-3 col-form-label"
-        >Kilometers of Track</label
-      >
-      <div class="col-sm-9">
-        <input
-          type="number"
-          nbInput
-          status="info"
-          placeholder="Write the kilometers of Track"
-          formControlName="kilometers"
-          />
-        <div *ngIf="invalidField('kilometers')">
-          <span class="lyricRed">please write a number</span>
+      <div class="form-group row ">
+        <label class="label col-sm-3 col-form-label">Kilometers of Track</label>
+        <div class="col-sm-9">
+          <input type="number" nbInput status="info" placeholder="Write the kilometers of Track"
+            formControlName="kilometers" />
+          <div *ngIf="invalidField('kilometers')">
+            <span class="lyricRed">please write a number</span>
+          </div>
         </div>
       </div>
-    </div>
 
-    <div class="form-group row "  >
-      <label class="label col-sm-3 col-form-label"
-        >Lanes of Track</label
-      >
-      <div class="col-sm-9">
-        <input
-          type="number"
-          nbInput
-          status="info"
-          placeholder="Write the number of lanes you want for this circuit"
-          formControlName="lanes"
-          />
-        <div *ngIf="invalidField('lanes')">
-          <span class="lyricRed">please write a number</span>
-        </div>
+
+        <div formArrayName="lanes">
+          <button nbButton shape="semi-round" status="primary" (click)="addLanes()">
+            + Add lane
+          </button>
+
+          <div [formGroupName]="i" *ngFor="let lane of lanes.controls; let i = index">
+
+            <label class="label col-sm-3 col-form-label">Name of Lane</label>
+            <div class="col-sm-9">
+              <input type="text" nbInput status="info" placeholder="Write the name of lane" formControlName="name"  />
+              <span (click)="removeLane(i)">X</span>
+            </div>
+          </div>
+
+
       </div>
-    </div>
-<div class="row">
-  <div class="col-sm-6">
-    <div class="form-group"  >
-      <label class="label col-sm-3 col-form-label"
-        >Name of Lane</label
-      >
-      <div class="col-sm-9">
-        <input
-          type="text"
-          nbInput
-          status="info"
-          placeholder="Write the number of lanes you want for this circuit"
-          formControlName="nameOfLane"
-          />
-        <div *ngIf="invalidField('lanes')">
-          <span class="lyricRed">please write a number</span>
-        </div>
+
+
+      <div class=" form-group">
+        <button nbButton shape="semi-round" status="primary" [disabled]="disableButton()" (click)="enterDataCircuit()">
+          Next
+        </button>
+        <button nbButton status="danger" shape="semi-round" (click)="reset()">
+          Reset
+        </button>
       </div>
-    </div>
-  </div>
-    <div class="col-sm-6">
-    <div class="form-group"  >
-      <label class="label col-sm-3 col-form-label"
-        >Lanes of Track</label
-      >
-      <div class="col-sm-9">
-        <input
-          type="number"
-          nbInput
-          status="info"
-          placeholder="Write the number of lanes you want for this circuit"
-          formControlName="lanes"
-          />
-        <div *ngIf="invalidField('lanes')">
-          <span class="lyricRed">please write a number</span>
-        </div>
-      </div>
-    </div>
-    </div>
 
     </div>
 
 
-    <div class=" form-group">
-      <button
-        nbButton
-        shape="semi-round"
-        status="primary"
-        [disabled]="disableButton()"
-        (click)="enterDataLane()"
-      >
-        Next
-      </button>
-      <button
-      nbButton status="danger"
-      shape="semi-round"
-      (click)="reset()" >
-        Reset
-      </button>
-    </div>
-
-  </div>
 
 
 
-
-
-    <div class="table-center"  >
+    <div class="table-center">
       <table>
         <thead>
           <tr>
@@ -134,7 +69,7 @@
           </tr>
         </thead>
         <tbody>
-          <tr >
+          <tr>
             <td></td>
             <td></td>
           </tr>
@@ -143,7 +78,7 @@
     </div>
 
 
-</form>
+  </form>
 
 
 </div>

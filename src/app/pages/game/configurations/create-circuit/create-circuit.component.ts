@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { Subject } from 'rxjs';
+import { FormArray, FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { Subject, takeUntil } from 'rxjs';
 import { CallToBackendService } from 'src/app/services/call-to-backend.service';
 
 @Component({
@@ -13,14 +13,17 @@ export class CreateCircuitComponent implements OnInit {
   public createCircuitForm: FormGroup = this.fb.group({
     nameOfTrack: ['', [Validators.required, Validators.min(3)]],
     kilometers: [, [Validators.required, Validators.min(1000)]],
-    lanes: ['', [Validators.required, Validators.min(3)]],
-    nameOfLane: ['', [Validators.min(3)]],
-    car: [null] //no necesario oligarlo
-  });
+    lanes: this.fb.array([])
+
+});
+
+get lanes(){
+  return this.createCircuitForm.get('lanes') as FormArray;
+}
 
   kilometers = this.createCircuitForm.controls['kilometers'];
   nameOfTrack = this.createCircuitForm.controls['nameOfTrack'];
-  lanes = this.createCircuitForm.controls['lanes'];
+  // lanes = this.createCircuitForm.controls['lanes'];
 
   destroy$ = new Subject<void>();
 
@@ -28,11 +31,24 @@ export class CreateCircuitComponent implements OnInit {
     private callBackend: CallToBackendService) { }
 
   ngOnInit(): void {
+this.addLanes();
   }
 
   ngOnDestroy(): void {
     this.destroy$.next();
     this.destroy$.complete();
+  }
+
+  addLanes() {
+    const lane = this.fb.group({
+      name: ['', Validators.required],
+      car: []
+    })
+    this.lanes.push(lane);
+  }
+
+  removeLane(index:number){
+    this.lanes.removeAt(index);
   }
 
   invalidField(field: any) {
@@ -49,12 +65,6 @@ export class CreateCircuitComponent implements OnInit {
   }
 
 
-  enterDataLane() {
-//una vez escrito la cantidad de lanes,
-//habilite los campos name of lane y car,este no es necesario obligarlo
-
-
-  }
 
   enterDataCircuit(){
 
@@ -62,13 +72,13 @@ export class CreateCircuitComponent implements OnInit {
 
     console.log('data create circuit', data)
 
-//     this.callBackend.saveCircuit(data)
-//     .pipe(takeUntil(this.destroy$))
-//     .subscribe(resp => {
+    this.callBackend.saveCircuit(data)
+    .pipe(takeUntil(this.destroy$))
+    .subscribe(resp => {
 
-// console.log('resp circuit', resp);
+console.log('resp circuit', resp);
 
-//     });
+    });
 
   }
 
