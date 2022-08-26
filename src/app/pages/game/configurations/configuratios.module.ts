@@ -10,7 +10,7 @@ import { ConfigureGameComponent } from './configure-game/configure-game.componen
 import { ConfigurationsComponent } from './configurations.component';
 import { UiModule } from 'src/app/common/ui.module';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
-import { NbDialogModule } from '@nebular/theme';
+import { NbDialogModule, NbWindowModule } from '@nebular/theme';
 
 
 @NgModule({
@@ -29,7 +29,7 @@ import { NbDialogModule } from '@nebular/theme';
     UiModule,
     FormsModule,
     ReactiveFormsModule,
-    NbDialogModule.forChild(),
+    
 
   ],
   // exports: [ConfigurationsComponent]

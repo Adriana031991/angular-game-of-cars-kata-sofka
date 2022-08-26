@@ -18,6 +18,8 @@ import {
   NbUserModule,
   NbTreeGridModule,
   NbContextMenuModule,
+  NbWindowModule,
+  NbListModule,
 } from '@nebular/theme';
 
 const MODULES_NEBULAR = [
@@ -29,12 +31,15 @@ const MODULES_NEBULAR = [
   FontAwesomeModule,
   NbIconModule,
   NbInputModule,
+  NbListModule,
+
   NbLayoutModule,
   NbMenuModule,
   NbSidebarModule,
   NbSelectModule,
   NbTreeGridModule,
   NbUserModule,
+  NbWindowModule
 
 ];
 

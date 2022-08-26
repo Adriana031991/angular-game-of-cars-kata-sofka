@@ -6,7 +6,7 @@ import { HomeComponent } from './home/home.component';
 import { GameComponent } from './game/game.component';
 import { UiModule } from '../common/ui.module';
 import { PagesComponent } from './pages.component';
-import { NbDialogModule, NbMenuModule } from '@nebular/theme';
+import { NbDialogModule, NbMenuModule, NbWindowModule } from '@nebular/theme';
 import { ComponentsModule } from '../components/components.module';
 import { PodiumComponent } from './podium/podium.component';
 import { FormBuilder, FormsModule, ReactiveFormsModule } from '@angular/forms';
@@ -45,7 +45,8 @@ import { ConfiguratiosModule } from './game/configurations/configuratios.module'
     FormsModule,
     ReactiveFormsModule,
     NbDialogModule.forChild(),
-    ConfiguratiosModule
+    ConfiguratiosModule,
+    NbWindowModule.forChild(),
   ]
 
 })

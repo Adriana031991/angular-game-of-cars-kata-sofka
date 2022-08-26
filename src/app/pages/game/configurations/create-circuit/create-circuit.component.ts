@@ -1,53 +1,58 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, Input, OnInit, Optional } from '@angular/core';
 import { FormArray, FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { NbDialogRef, NbWindowRef } from '@nebular/theme';
 import { Subject, takeUntil } from 'rxjs';
 import { CallToBackendService } from 'src/app/services/call-to-backend.service';
 
 @Component({
   selector: 'app-create-circuit',
   templateUrl: './create-circuit.component.html',
-  styleUrls: ['./create-circuit.component.scss']
+  styleUrls: ['./create-circuit.component.scss'],
 })
 export class CreateCircuitComponent implements OnInit {
+  @Input() title!: string;
 
   public createCircuitForm: FormGroup = this.fb.group({
-    nameOfTrack: ['', [Validators.required, Validators.min(3)]],
+    name: ['', [Validators.required, Validators.min(3)]],
     kilometers: [, [Validators.required, Validators.min(1000)]],
-    lanes: this.fb.array([])
+    lanes: this.fb.array([]),
+  });
 
-});
-
-get lanes(){
-  return this.createCircuitForm.get('lanes') as FormArray;
-}
+  get lanes() {
+    return this.createCircuitForm.get('lanes') as FormArray;
+  }
 
   kilometers = this.createCircuitForm.controls['kilometers'];
-  nameOfTrack = this.createCircuitForm.controls['nameOfTrack'];
-  // lanes = this.createCircuitForm.controls['lanes'];
+  nameOfTrack = this.createCircuitForm.controls['name'];
 
-  destroy$ = new Subject<void>();
+  destroyCallToServer$ = new Subject<void>();
 
-  constructor(private fb: FormBuilder,
-    private callBackend: CallToBackendService) { }
+  constructor(
+    private fb: FormBuilder,
+    private callBackend: CallToBackendService,
+    @Optional() protected ref: NbDialogRef<CreateCircuitComponent>,
+
+  ) {}
+
 
   ngOnInit(): void {
-this.addLanes();
+    this.addLanes();
   }
 
   ngOnDestroy(): void {
-    this.destroy$.next();
-    this.destroy$.complete();
+    this.destroyCallToServer$.next();
+    this.destroyCallToServer$.complete();
   }
 
   addLanes() {
     const lane = this.fb.group({
       name: ['', Validators.required],
-      car: []
-    })
+      car: [],
+    });
     this.lanes.push(lane);
   }
 
-  removeLane(index:number){
+  removeLane(index: number) {
     this.lanes.removeAt(index);
   }
 
@@ -59,30 +64,23 @@ this.addLanes();
   }
 
   disableButton() {
-    return (
-      this.nameOfTrack.invalid || this.kilometers.invalid
-    );
+    return this.nameOfTrack.invalid || this.kilometers.invalid;
   }
 
+  enterDataCircuit() {
+    const data = this.createCircuitForm.value;
 
-
-  enterDataCircuit(){
-
-    const data = this.createCircuitForm.value
-
-    console.log('data create circuit', data)
-
-    this.callBackend.saveCircuit(data)
-    .pipe(takeUntil(this.destroy$))
-    .subscribe(resp => {
-
-console.log('resp circuit', resp);
-
-    });
-
+    this.callBackend
+      .saveCircuit(data)
+      .pipe(takeUntil(this.destroyCallToServer$))
+      .subscribe((resp) => {
+        console.log('resp circuit', resp);
+      });
+      this.cancel();
   }
 
-  reset(){
+  cancel() {
+    this.ref.close();
 
   }
 

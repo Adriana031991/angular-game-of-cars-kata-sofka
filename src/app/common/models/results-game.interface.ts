@@ -32,16 +32,16 @@ export interface Game {
 }
 
 export interface Circuit {
-  id:         number;
+  id?:         number;
   name:       string;
   lanes:      Lane[];
   kilometers: number;
 }
 
 export interface Lane {
-  idLane: number;
+  idLane?: number;
   name:   string;
-  car:    Car;
+  car?:    Car;
 }
 
 export interface Car {

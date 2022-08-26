@@ -12,8 +12,10 @@ import { NewPlayer } from 'src/app/common/classes/new-player';
 import { DataPlayer } from 'src/app/common/models/player-interfaces';
 import { Circuit } from 'src/app/common/models/results-game.interface';
 import { shareDataConfig } from 'src/app/common/models/shared.interface';
+import { FacadeService } from 'src/app/pages/services/facade.service';
 import { CallToBackendService } from 'src/app/services/call-to-backend.service';
 import { SharedService } from 'src/app/services/shared.service';
+import { CreateCircuitComponent } from '../create-circuit/create-circuit.component';
 
 @Component({
   selector: 'app-configure-game',
@@ -22,6 +24,7 @@ import { SharedService } from 'src/app/services/shared.service';
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class ConfigureGameComponent implements OnInit, OnDestroy {
+
   players: DataPlayer[] = [];
   selectedItem: Circuit = { id: 0, name: '', lanes: [], kilometers: 0 };
   openFieldForm: boolean = false;
@@ -38,11 +41,10 @@ export class ConfigureGameComponent implements OnInit, OnDestroy {
   numberOfPlayers = this.configureGameForm.controls['numberOfPlayers'];
   track = this.configureGameForm.controls['track'];
 
-  destroy$ = new Subject<void>();
+  destroyCallToServer$ = new Subject<void>();
 
   listOfTracks$ = this.callBackend.listCircuits$.pipe(
     map((resp: any) => {
-      // console.log('circuits', resp.data[5], JSON.stringify(resp.data[5]))
       return resp['data'];
     })
   );
@@ -51,25 +53,29 @@ export class ConfigureGameComponent implements OnInit, OnDestroy {
     private fb: FormBuilder,
     private sharedService: SharedService,
     private callBackend: CallToBackendService,
-    private changeDetection: ChangeDetectorRef
+    private changeDetection: ChangeDetectorRef,
+    private facadeService: FacadeService
   ) { }
 
   ngOnInit(): void {
+    this.setValidatorsToNameOfPlayerField();
+  }
+
+  setValidatorsToNameOfPlayerField() {
     this.configureGameForm.get(['track', 'numberOfPlayers'])?.valueChanges.subscribe((checkValue) => {
-        const name = this.configureGameForm.get('nameOfPlayer');
-        if (checkValue) {
-          name?.setValidators([Validators.required, Validators.minLength(3)]);
-        } else {
-          name?.clearValidators();
-        }
-        name?.updateValueAndValidity();
-      });
-    console.log('formulario', this.configureGameForm.value);
+      const name = this.configureGameForm.get('nameOfPlayer');
+      if (checkValue) {
+        name?.setValidators([Validators.required, Validators.minLength(3)]);
+      } else {
+        name?.clearValidators();
+      }
+      name?.updateValueAndValidity();
+    });
   }
 
   ngOnDestroy(): void {
-    this.destroy$.next();
-    this.destroy$.complete();
+    this.destroyCallToServer$.next();
+    this.destroyCallToServer$.complete();
   }
 
   openFieldName() {
@@ -99,17 +105,18 @@ export class ConfigureGameComponent implements OnInit, OnDestroy {
       this.configureGameForm.get(field)?.dirty
     );
   }
+  createCircuit() {
+    this.facadeService.modalDialog('Create a Circuit',CreateCircuitComponent)
 
 
+  }
 
-  // enterPlayerKeyup(value: any) {
-  //   return this.enterPlayer();
-  // }
+
   enterPlayer() {
     const player = new NewPlayer(0, this.nameOfPlayer.value);
     this.callBackend
       .addNewPlayer(player)
-      .pipe(takeUntil(this.destroy$))
+      .pipe(takeUntil(this.destroyCallToServer$))
       .subscribe({
         next: (resp) => {
           this.players = [...this.players, resp.data];
@@ -117,7 +124,11 @@ export class ConfigureGameComponent implements OnInit, OnDestroy {
           this.changeDetection.detectChanges();
         },
         error: (err) => {
-          console.log;
+          console.log('error enter player', err);
+          const errMessage = err.error.message
+            ? err.error.message
+            : 'Problem Communicating With Servers';
+          this.facadeService.toastr('danger', errMessage);
         },
       });
     this.resetNameOfPlayerForm();

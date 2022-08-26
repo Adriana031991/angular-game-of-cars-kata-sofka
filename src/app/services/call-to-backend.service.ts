@@ -36,13 +36,13 @@ export class CallToBackendService {
 
   listCircuits$ = this.http.get<ResultCircuit[]>( `${this.URL}/circuit`);
 
-  saveCircuit(circuit: any) {
-    return this.http.post( `${this.URL}/circuit`, circuit);
+  saveCircuit(circuit: Circuit): Observable<Circuit> {
+    return this.http.post<Circuit>( `${this.URL}/circuit`, circuit);
   }
 
-  updateCircuit(circuit: any) {
-    return this.http.post( `${this.URL}/circuit`, circuit);
-  } //pending
+  updateCircuit(circuit: Circuit): Observable<Circuit> {
+    return this.http.post<Circuit>( `${this.URL}/circuit`, circuit);
+  }
 
   deleteCircuit(id: number) {
     return this.http.delete( `${this.URL}/circuit/${id}`);

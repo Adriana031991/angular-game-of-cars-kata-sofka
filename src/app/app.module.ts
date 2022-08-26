@@ -6,8 +6,9 @@ import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
-import { NbDialogModule, NbMenuModule, NbThemeModule } from '@nebular/theme';
+import { NbDialogModule, NbMenuModule, NbThemeModule, NbToastrModule, NbWindowModule } from '@nebular/theme';
 import { UiModule } from './common/ui.module';
+import { FormBuilder } from '@angular/forms';
 
 
 @NgModule({
@@ -24,12 +25,12 @@ import { UiModule } from './common/ui.module';
     UiModule,
     NbMenuModule.forRoot(),
     NbDialogModule.forRoot(),
-
-    // FontAwesomeModule,
+    NbWindowModule.forRoot(),
+    NbToastrModule.forRoot(),
 
 
   ],
-  providers: [],
+  providers: [FormBuilder ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
