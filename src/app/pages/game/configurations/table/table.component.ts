@@ -10,7 +10,7 @@ import {
 } from '@nebular/theme';
 import { SharedService } from 'src/app/services/shared.service';
 import { map, Subject, takeUntil } from 'rxjs';
-import { DataTable, TableNode } from 'src/app/common/models/table.interface';
+import { TableNode, DataTablePlayer } from 'src/app/common/models/table.interface';
 import { DeleteDialogComponent } from './delete-dialog/delete-dialog.component';
 import { FacadeService } from 'src/app/pages/services/facade.service';
 import { DataPlayer, Driver } from 'src/app/common/models/player-interfaces';
@@ -33,9 +33,7 @@ export class TableComponent implements OnInit, OnDestroy {
       map((resp: any) => (resp.dataDrivers)),
       takeUntil(this.destroyConfigure$))
     .subscribe((result: any) => {
-
-      // const { dataDrivers } = result;
-      const newData: TableNode<DataTable>[] = result.map((res: any) => ({
+      const newData: TableNode<DataTablePlayer>[] = result.map((res: any) => ({
         data: { name: res.driver.name, id: res.driver.id },
       }));
       this.dataSource1.setData(newData);
@@ -44,14 +42,10 @@ export class TableComponent implements OnInit, OnDestroy {
 
   defaultColumns1 = ['name', 'actions'];
   allColumns1 = ['N°', ...this.defaultColumns1];
-  dataSource1!: NbTreeGridDataSource<DataTable>;
+  dataSource1!: NbTreeGridDataSource<DataTablePlayer>;
   sortColumn: string = '';
   sortDirection: NbSortDirection = NbSortDirection.NONE;
 
-  itemsOfActionsTable = [
-    { title: 'Edit',icon: 'edit-outline' },
-    { title: 'Delete', icon: 'trash-2-outline'}
-  ];
 
   constructor(
     private sharedService: SharedService,
@@ -95,9 +89,9 @@ export class TableComponent implements OnInit, OnDestroy {
 
   }
 
-  delete(id:any){
-    console.log('delete player', id)
-    this.facadeService.modalDialog('Editing Player',DeleteDialogComponent , id)
+  delete(value:Driver){
+    console.log('delete player', value)
+    this.facadeService.modalDialog('Eliminate Player',DeleteDialogComponent , value)
 
   }
 

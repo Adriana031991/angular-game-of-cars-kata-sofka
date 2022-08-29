@@ -1,16 +1,18 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 
-import { ConfiguratiosRoutingModule } from './configuratios-routing.module';
+import { ConfigurationsRoutingModule } from './configurations-routing.module';
 import { CreateCircuitComponent } from './create-circuit/create-circuit.component';
-import { TableComponent } from './table/table.component';
+
 import { DeleteDialogComponent } from './table/delete-dialog/delete-dialog.component';
 import { EditDialogComponent } from './table/edit-dialog/edit-dialog.component';
 import { ConfigureGameComponent } from './configure-game/configure-game.component';
 import { ConfigurationsComponent } from './configurations.component';
 import { UiModule } from 'src/app/common/ui.module';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
-import { NbDialogModule, NbWindowModule } from '@nebular/theme';
+import { TableCircuitsComponent } from './table-circuits/table-circuits.component';
+import { TableWinnersComponent } from './table-winners/table-winners.component';
+import { TableComponent } from './table/table.component';
 
 
 @NgModule({
@@ -21,17 +23,19 @@ import { NbDialogModule, NbWindowModule } from '@nebular/theme';
     DeleteDialogComponent,
     EditDialogComponent,
     ConfigureGameComponent,
+    TableCircuitsComponent,
+    TableWinnersComponent,
 
   ],
   imports: [
     CommonModule,
-    ConfiguratiosRoutingModule,
+    ConfigurationsRoutingModule,
     UiModule,
     FormsModule,
     ReactiveFormsModule,
-    
+
 
   ],
   // exports: [ConfigurationsComponent]
 })
-export class ConfiguratiosModule { }
+export class ConfigurationsModule { }

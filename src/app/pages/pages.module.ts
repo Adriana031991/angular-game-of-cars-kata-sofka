@@ -6,19 +6,14 @@ import { HomeComponent } from './home/home.component';
 import { GameComponent } from './game/game.component';
 import { UiModule } from '../common/ui.module';
 import { PagesComponent } from './pages.component';
-import { NbDialogModule, NbMenuModule, NbWindowModule } from '@nebular/theme';
+import { NbDialogModule, NbWindowModule } from '@nebular/theme';
 import { ComponentsModule } from '../components/components.module';
 import { PodiumComponent } from './podium/podium.component';
-import { FormBuilder, FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { RaceDialogComponent } from './game/race-dialog/race-dialog.component';
 import { PathNotFoundComponent } from './path-not-found/path-not-found.component';
-import { ConfigureGameComponent } from './game/configurations/configure-game/configure-game.component';
-import { ConfigurationsComponent } from './game/configurations/configurations.component';
-import { CreateCircuitComponent } from './game/configurations/create-circuit/create-circuit.component';
-import { TableComponent } from './game/configurations/table/table.component';
-import { DeleteDialogComponent } from './game/configurations/table/delete-dialog/delete-dialog.component';
-import { EditDialogComponent } from './game/configurations/table/edit-dialog/edit-dialog.component';
-import { ConfiguratiosModule } from './game/configurations/configuratios.module';
+import { ConfigurationsModule } from './game/configurations/configurations.module';
+
 
 
 @NgModule({
@@ -29,12 +24,7 @@ import { ConfiguratiosModule } from './game/configurations/configuratios.module'
     PodiumComponent,
     RaceDialogComponent,
     PathNotFoundComponent,
-    // ConfigureGameComponent,
-    // ConfigurationsComponent,
-    // CreateCircuitComponent,
-    // TableComponent,
-    // DeleteDialogComponent,
-    // EditDialogComponent,
+
   ],
 
   imports: [
@@ -45,7 +35,7 @@ import { ConfiguratiosModule } from './game/configurations/configuratios.module'
     FormsModule,
     ReactiveFormsModule,
     NbDialogModule.forChild(),
-    ConfiguratiosModule,
+    ConfigurationsModule,
     NbWindowModule.forChild(),
   ]
 

@@ -4,7 +4,7 @@ export interface TableNode<T> {
   expanded?: boolean;
 }
 
-export interface DataTable {
+export interface DataTablePlayer {
   name: string;
   id: any;
 }

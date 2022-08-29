@@ -6,18 +6,30 @@ export const MENU_ITEMS: NbMenuItem[] = [
     icon: 'home',
     home: true,
     link: '/layout/home',
-    selected: true
+    // selected: true
   },
   {
     title: 'Start Game',
     icon: 'play-circle-outline',
-    link: '/layout/new-game',
-    // selected: true
+    link: '/layout/game/new-game',
+
+  },
+  {
+    title: 'Circuits',
+    icon: 'people-outline',
+    link: '/layout/game/table-circuit',
+
   },
   {
     title: 'Podium',
     icon: 'people-outline',
     link: '/layout/podium',
-    // selected: true
+
+  },
+  {
+    title: 'Podium All Winners',
+    icon: 'people-outline',
+    link: '/layout/game/all-winners',
+
   },
 ];

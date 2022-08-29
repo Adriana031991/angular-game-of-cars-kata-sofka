@@ -3,9 +3,9 @@
     <nb-card>
       <nb-card-header>{{ title }}</nb-card-header>
       <nb-card-body>
-        <nb-icon icon="alert-circle-outline"> </nb-icon>
         <nb-icon [icon]="'fa-triangle-exclamation'" pack="font-awesome" class="icon-triangle"></nb-icon>
-        <p>Driver: {{data}}</p>
+        <p>You are going to eliminate: {{data.name}}</p>
+        <!-- <p>You are going to eliminate: fffffffff</p> -->
       </nb-card-body>
       <nb-card-footer>
         <button nbButton status="danger" shape="semi-round" (click)="delete()">Delete</button>

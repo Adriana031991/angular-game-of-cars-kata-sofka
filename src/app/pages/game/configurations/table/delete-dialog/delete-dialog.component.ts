@@ -18,7 +18,6 @@ export class DeleteDialogComponent implements OnInit {
 
   destroyConfigure$ = new Subject<void>();
   drivers: DataPlayer[] = [];
-  drivers1: DataPlayer[] = [];
 
   configureForm$ = this.sharedService.configureFormSubject$
     .pipe(
@@ -41,8 +40,7 @@ export class DeleteDialogComponent implements OnInit {
   }
 
   delete() {
-    console.log('id driver', this.data,);
-    this.server.deletePlayer(this.data).subscribe(
+    this.server.deletePlayer(this.data.id).subscribe(
       {
         next: (value) => {
           console.log('delete?', value)
