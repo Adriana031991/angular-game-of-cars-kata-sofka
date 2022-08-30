@@ -33,7 +33,7 @@ export class FacadeService implements OnDestroy {
   }
 
   navigateToNewGame() {
-    this.router.navigate(['/layout/new-game'])
+    this.router.navigate(['/layout/game/new-game'])
   }
 
   navigateToPodium() {

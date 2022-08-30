@@ -3,7 +3,7 @@ import { RouterModule, Routes } from '@angular/router';
 import { HomeComponent } from './home/home.component';
 import { PagesComponent } from './pages.component';
 import { PathNotFoundComponent } from './path-not-found/path-not-found.component';
-import { PodiumComponent } from './podium/podium.component';
+import { PodiumComponent } from './game/podium/podium.component';
 
 const routes: Routes = [
   { path: '',

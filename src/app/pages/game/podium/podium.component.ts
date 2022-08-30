@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { map } from 'rxjs';
 import { SharedService } from 'src/app/services/shared.service';
-import { FacadeService } from '../services/facade.service';
+import { FacadeService } from '../../services/facade.service';
 
 @Component({
   selector: 'app-podium',

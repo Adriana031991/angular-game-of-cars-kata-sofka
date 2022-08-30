@@ -10,9 +10,9 @@ import { ConfigureGameComponent } from './configure-game/configure-game.componen
 import { ConfigurationsComponent } from './configurations.component';
 import { UiModule } from 'src/app/common/ui.module';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
-import { TableCircuitsComponent } from './table-circuits/table-circuits.component';
-import { TableWinnersComponent } from './table-winners/table-winners.component';
 import { TableComponent } from './table/table.component';
+import { TableWinnersComponent } from './table-winners/table-winners.component';
+import { CircuitsTableComponent } from './circuits-table/circuits-table.component';
 
 
 @NgModule({
@@ -23,8 +23,8 @@ import { TableComponent } from './table/table.component';
     DeleteDialogComponent,
     EditDialogComponent,
     ConfigureGameComponent,
-    TableCircuitsComponent,
     TableWinnersComponent,
+    CircuitsTableComponent,
 
   ],
   imports: [
@@ -36,6 +36,5 @@ import { TableComponent } from './table/table.component';
 
 
   ],
-  // exports: [ConfigurationsComponent]
 })
 export class ConfigurationsModule { }

@@ -1,0 +1,78 @@
+<nb-card status="success">
+  <nb-card-header>Table Of Circuits</nb-card-header>
+  <nb-card-body>
+    <table [nbTreeGrid]="dataSource" [nbSort]="dataSource" (sort)="updateSort($event)">
+      <tr nbTreeGridHeaderRow *nbTreeGridHeaderRowDef="allColumns"></tr>
+      <tr nbTreeGridRow *nbTreeGridRowDef="let row; columns: allColumns"></tr>
+
+      <ng-container [nbTreeGridColumnDef]="customColumn">
+        <th nbTreeGridHeaderCell [nbSortHeader]="getSortDirection(customColumn)" *nbTreeGridHeaderCellDef>
+          {{ customColumn | titlecase }}
+        </th>
+        <td nbTreeGridCell *nbTreeGridCellDef="let row; let i = index">
+
+          {{row.data[customColumn] }}
+
+        </td>
+      </ng-container>
+
+
+      <!-- column of 'name', and 'kilometers' -->
+      <ng-container *ngFor="let column of defaultColumns.slice(0,2); let index = index" [nbTreeGridColumnDef]="column">
+        <th nbTreeGridHeaderCell [nbSortHeader]="getSortDirection(column)" *nbTreeGridHeaderCellDef>
+
+          {{ column | titlecase }}
+        </th>
+        <td nbTreeGridCell *nbTreeGridCellDef="let row">
+
+          {{ row.data[column] }}
+
+        </td>
+
+      </ng-container>
+
+
+      <!-- column of lanes -->
+      <ng-container *ngFor="let column of defaultColumns.slice(2,3)" [nbTreeGridColumnDef]="column">
+        <th nbTreeGridHeaderCell [nbSortHeader]="getSortDirection(column)" *nbTreeGridHeaderCellDef>
+
+          {{ column | titlecase }}
+
+        </th>
+
+        <td nbTreeGridCell *nbTreeGridCellDef="let row">
+
+          <nb-tree-grid-row-toggle [expanded]="row.expanded" *ngIf="row.children">
+
+          </nb-tree-grid-row-toggle>
+
+          <!-- {{ row.data.lanes }} -->
+
+
+        </td>
+
+      </ng-container>
+
+
+      <!-- column of actions -->
+      <ng-container *ngFor="let column of defaultColumns.slice(3,4)" [nbTreeGridColumnDef]="column">
+        <th nbTreeGridHeaderCell *nbTreeGridHeaderCellDef>
+          {{ column | titlecase }}
+        </th>
+        <td nbTreeGridCell *nbTreeGridCellDef="let row">
+          <nb-icon (click)="edit(row.data)" icon="edit-outline" aria-hidden="true" nbTooltip="Edit this player"
+            nbTooltipPlacement="top" nbTooltipStatus="danger"></nb-icon>
+          <nb-icon (click)="delete(row.data)" icon="trash-2-outline" aria-hidden="true" nbTooltip="Delete this player"
+            nbTooltipPlacement="top" nbTooltipStatus="danger"></nb-icon>
+
+        </td>
+
+      </ng-container>
+
+
+
+
+
+    </table>
+  </nb-card-body>
+</nb-card>
