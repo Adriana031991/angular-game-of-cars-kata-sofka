@@ -16,18 +16,9 @@ export class CircuitsTableComponent implements OnInit, OnDestroy {
 
   listOfTracks$ = this.tableFacade.listOfTracks$
     .pipe(
-      // map((resp: any) => { return resp['data']; }),
       takeUntil(this.destroyListOfTracks$))
     .subscribe((data: any) => {
-
       this.orderDataForTable(data);
-      console.log(  )
-      
-//       const newData: TableCircuits<Circuit>[] = data.map((res: Circuit) => {
-//         this.orderDataForTable(res);
-// console.log(  this.orderDataForTable(res))
-//       });
-
       this.dataSource.setData(this.newData);
       this.changeDetection.detectChanges();
 
@@ -67,8 +58,8 @@ export class CircuitsTableComponent implements OnInit, OnDestroy {
 
   }
 
-  orderDataForTable(data: any) {
-    this.newData = data.map((res: Circuit) => {
+  orderDataForTable(data : any) {
+    this.newData =data.forEach((res: Circuit) => {
       if (res.lanes.length > 0) {
   
         return {

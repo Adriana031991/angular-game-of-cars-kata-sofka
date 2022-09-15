@@ -1,11 +1,10 @@
-import { ChangeDetectorRef, Injectable, Optional } from '@angular/core';
-import { NbDialogRef, NbTreeGridDataSourceBuilder } from '@nebular/theme';
-import { map, Subject, takeUntil } from 'rxjs';
+import { Injectable, Optional } from '@angular/core';
+import { NbDialogRef } from '@nebular/theme';
+import {  Subject } from 'rxjs';
 import { DataPlayer, Driver, NewPlayerInterface, ResponseUpdatePlayer } from 'src/app/shared/models/player-interfaces';
 import { Circuit } from 'src/app/shared/models/results-game.interface';
 import { shareDataConfig } from 'src/app/shared/models/shared.interface';
-import { TableCircuits } from 'src/app/shared/models/table.interface';
-import { CallToBackendService, MessagesService, RoutesFacadeService, SharedService } from 'src/app/shared/services';
+import { CallToBackendService, MessagesService, SharedService } from 'src/app/shared/services';
 import { DeleteDialogComponent } from '../components/delete-dialog/delete-dialog.component';
 import { EditDialogComponent } from '../components/edit-dialog/edit-dialog.component';
 
