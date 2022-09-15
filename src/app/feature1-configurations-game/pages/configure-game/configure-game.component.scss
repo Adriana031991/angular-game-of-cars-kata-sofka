@@ -1,0 +1,25 @@
+
+
+.disable{
+  pointer-events:none;
+  opacity: 0.5;
+
+}
+
+.container-track{
+  display: flex;
+  nb-select {
+    margin: -21px 0 0 0;
+  }
+  button {
+    margin: 0 0 0 10px;
+    width: 50px;
+  }
+}
+
+.second--form{
+  display:flex;
+  flex-direction: column;
+  margin-top: 6%;
+  margin-bottom: 6%;
+}

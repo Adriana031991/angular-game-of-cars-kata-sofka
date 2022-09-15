@@ -1,0 +1,52 @@
+<div class="col-sm-12">
+  <nb-card >
+    <nb-card-header>Podium</nb-card-header>
+
+
+    <nb-card-body >
+      <img src="../../../assets/img/podium.gif" alt="podium" />
+
+      <div class="table-center" *ngIf="resultsGame$ | async as results">
+
+      <h2>{{results.name}}</h2>
+
+        <table>
+        <thead>
+          <tr>
+            <th>Position</th>
+            <th>Driver</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr >
+              <td>1</td>
+              <td>{{results.first.name }}</td>
+          </tr>
+          <tr >
+              <td>2</td>
+              <td>{{results.second.name }}</td>
+          </tr>
+          <tr >
+              <td>3</td>
+              <td>{{results.third.name }}</td>
+          </tr>
+
+      </tbody>
+      </table>
+    </div>
+    </nb-card-body>
+    <nb-card-footer>
+      <button
+      nbButton
+      status="primary"
+      shape="semi-round"
+      (click)="startNewGame()"
+    >
+      Start New Game
+    </button>
+  </nb-card-footer>
+
+
+  </nb-card>
+</div>
+

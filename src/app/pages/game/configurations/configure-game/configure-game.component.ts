@@ -125,14 +125,13 @@ export class ConfigureGameComponent implements OnInit, OnDestroy {
         },
         error: (err) => {
           console.log('error enter player', err);
-          const errMessage = err.error.message
-            ? err.error.message
-            : 'Problem Communicating With Servers';
-          this.facadeService.toastr('danger', errMessage);
+          this.facadeService.errorMessage(err);
         },
       });
     this.resetNameOfPlayerForm();
   }
+
+
 
   disableButtonEntryPlayer() {
     return (

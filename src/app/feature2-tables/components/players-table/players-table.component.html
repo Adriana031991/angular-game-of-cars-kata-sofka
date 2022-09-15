@@ -1,0 +1,51 @@
+<nb-card >
+  <nb-card-header>Table Of Players</nb-card-header>
+
+    <table [nbTreeGrid]="dataSource1" [nbSort]="dataSource1" (sort)="updateSort($event)" class="center">
+      <tr nbTreeGridHeaderRow *nbTreeGridHeaderRowDef="allColumns1"></tr>
+      <tr nbTreeGridRow *nbTreeGridRowDef="let row; columns: allColumns1"></tr>
+
+      <ng-container [nbTreeGridColumnDef]="customColumn" >
+        <th nbTreeGridHeaderCell [nbSortHeader]="getSortDirection(customColumn)" *nbTreeGridHeaderCellDef>
+          {{ customColumn | titlecase }}
+        </th>
+        <td nbTreeGridCell *nbTreeGridCellDef="let row; let i = index">
+          {{ i + 1 }}
+        </td>
+      </ng-container>
+
+      <ng-container *ngFor="let column of defaultColumns1.slice(0,1)" [nbTreeGridColumnDef]="column">
+        <th nbTreeGridHeaderCell [nbSortHeader]="getSortDirection(column)" *nbTreeGridHeaderCellDef>
+          {{ column | titlecase }}
+        </th>
+        <td nbTreeGridCell *nbTreeGridCellDef="let row" >
+          {{ row.data[column] }}
+
+        </td>
+
+      </ng-container>
+
+      <ng-container *ngFor="let column of defaultColumns1.slice(1,2)" [nbTreeGridColumnDef]="column">
+        <th nbTreeGridHeaderCell *nbTreeGridHeaderCellDef>
+          {{ column | titlecase }}
+        </th>
+        <td nbTreeGridCell *nbTreeGridCellDef="let row">
+
+          <button nbButton ghost status="primary" (click)="edit(row.data)">
+            <nb-icon icon="fa-pencil" pack="font-awesome" aria-hidden="true"
+              nbTooltip="Edit this player" nbTooltipPlacement="top" nbTooltipStatus="primary"></nb-icon>
+          </button>
+          
+          <button nbButton ghost status="danger" (click)="delete(row.data)">
+            <nb-icon icon="fa-trash" pack="font-awesome" aria-hidden="true"
+              nbTooltip="Delete this player" nbTooltipPlacement="top" nbTooltipStatus="danger"></nb-icon>
+          </button>
+
+        </td>
+
+      </ng-container>
+
+ 
+    </table>
+
+</nb-card>

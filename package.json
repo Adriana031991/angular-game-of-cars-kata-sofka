@@ -25,6 +25,7 @@
     "@fortawesome/free-brands-svg-icons": "^5.15.4",
     "@fortawesome/free-regular-svg-icons": "^5.15.4",
     "@fortawesome/free-solid-svg-icons": "^5.15.4",
+    "@nebular/bootstrap": "^9.1.0-rc.2",
     "@nebular/eva-icons": "^9.0.3",
     "@nebular/theme": "^9.0.3",
     "eva-icons": "^1.1.3",

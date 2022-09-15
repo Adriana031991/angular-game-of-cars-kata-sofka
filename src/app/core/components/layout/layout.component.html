@@ -1,0 +1,38 @@
+
+<nb-layout windowMode>
+  <nb-layout-header fixed>
+    <div class="header">
+      <a [routerLink]="['../layout/home']"><nb-icon icon="fa-dice-d20" pack="font-awesome" class="icon" > </nb-icon></a>
+      <h1>Game of Cars</h1>
+    </div>
+  </nb-layout-header>
+
+  <nb-layout-header subheader >
+    <div class="control-panel" >
+      <a ghost (click)="toggle()">
+        <nb-icon icon="fa-bars-staggered" pack="font-awesome"></nb-icon>
+    </a>
+
+      <div *ngIf="dataMenuGame$ | async as menu">
+        <nb-actions size="large">
+          <nb-action> {{menu}}</nb-action>
+        </nb-actions>
+      </div>
+    </div>
+  </nb-layout-header>
+
+  <!-- menu -->
+  <nb-sidebar responsive>
+    <ng-content select="nb-menu"></ng-content>
+  </nb-sidebar>
+
+  <!-- contenido de la columna segun la ruta colocada -->
+
+  <nb-layout-column >
+    <ng-content select="router-outlet"></ng-content>
+  </nb-layout-column>
+
+  <nb-layout-footer>Contact us</nb-layout-footer>
+
+</nb-layout>
+

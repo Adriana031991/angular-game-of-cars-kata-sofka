@@ -2,23 +2,73 @@
 @use '@nebular/theme/styles/theming' as *;
 @use '@nebular/theme/styles/themes/default';
 
+// $nb-themes: nb-register-theme((
+
+//   // add your variables here like:
+
+//   color-red: red,
+//   color-blue: blue,
+//   color-green: green,
+//   color-white: white,
+//   color-black: black,
+//   border-rd-circle: 50%,
+//   bg-color-lila: rgb(154, 90, 243),
+//   border: none,
+//   background-color-theme: linear-gradient(90deg, rgba(3,165,238,1) 0%, rgba(179,204,3,1) 17%, rgba(29,204,40,1) 41%, rgba(244,163,236,1) 79%, rgba(154,255,235,1) 100%)
+
+//   // color-primary-100: #0f7a17,
+//   // color-primary-200: #d9e4ff,
+//   // color-primary-300: #a6c1ff,
+//   // color-primary-400: #598bff,
+//   // color-primary-500: #3366ff,
+//   // color-primary-600: #274bdb,
+//   // color-primary-700: #1a34b8,
+//   // color-primary-800: #102694,
+//   // color-primary-900: #091c7a,
+
+// ), default, default);
+
+
 $nb-themes: nb-register-theme((
 
   // add your variables here like:
 
-  color-red: red,
-  border-rd-circle: 50%,
-  bg-color-lila: rgb(154, 90, 243),
-  border: none,
+  // color-primary-100: #faf7ff,
+  // // <- primary violet shades
+  // color-primary-200: #ece3ff,
+  // color-primary-300: #d5bfff,
+  // color-primary-400: #b18aff,
+  // color-primary-500: #a16eff,
+  // color-primary-600: #7b51db,
+  // color-primary-700: #5a37b8,
+  // color-primary-800: #3e2494,
+  // color-primary-900: #29157a,
+  // color-basic-100: white,
+  // color-basic-200: #eefafc,
+  // color-basic-300: #e8f5fa,
+  // color-basic-400: #d6e6f2,
+  // color-basic-500: #c7dbeb,
+  // color-basic-600: #a9c0db,
+  // color-basic-700: #497d8e,
+  // color-basic-800: #336a77,
+  // color-basic-900: #295c66,
+  // color-basic-1000: #244555,
+  // color-basic-1100: #121a2b,
+  // background-basic-color-1: color-basic-600,
+  // background-basic-color-2: color-basic-600,
+  background-basic-color-3: linear-gradient(90deg, rgba(255, 154, 162) 0%, rgba(255, 183, 178) 20%, rgba(255, 218, 193) 40%, rgba(226, 240, 203) 60%, rgba(181, 234, 215) 80%, rgba(199, 206, 234) 100%),
+  // background-basic-color-4: color-basic-600,
+  // border-basic-color-1: color-basic-700,
+  // border-basic-color-2: color-basic-800,
+  // border-basic-color-3: color-basic-900,
+  // border-basic-color-4: color-basic-1000,
+  // border-basic-color-5: color-basic-1100,
+  // shadow: 0 0.5rem 1rem 0 rgba(25, 30, 51, 0.24),
+  // text-disabled-color: color-basic-600,
 
-  // color-primary-100: #0f7a17,
-  // color-primary-200: #d9e4ff,
-  // color-primary-300: #a6c1ff,
-  // color-primary-400: #598bff,
-  // color-primary-500: #3366ff,
-  // color-primary-600: #274bdb,
-  // color-primary-700: #1a34b8,
-  // color-primary-800: #102694,
-  // color-primary-900: #091c7a,
 
-), default, default);
+
+
+
+), lila, default);
+

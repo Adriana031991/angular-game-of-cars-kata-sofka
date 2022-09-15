@@ -1,0 +1,43 @@
+<nb-card>
+  <nb-card-header>Table Dont work</nb-card-header>
+  <nb-card-body>
+    <!-- <table [nbTreeGrid]="dataSource" [nbSort]="dataSource" >
+      <tr nbTreeGridHeaderRow *nbTreeGridHeaderRowDef="allColumns"></tr>
+      <tr nbTreeGridRow *nbTreeGridRowDef="let row; columns: allColumns"></tr> -->
+
+      <!-- <ng-container [nbTreeGridColumnDef]="allColumns1[0]">
+        <th nbTreeGridHeaderCell [nbSortHeader]="getSortDirection(allColumns1[0])" *nbTreeGridHeaderCellDef>
+          {{ allColumns1[0] }}
+        </th>
+        <td nbTreeGridCell *nbTreeGridCellDef="let row; let i = index">
+          {{ i + 1 }}
+        </td>
+      </ng-container>
+
+      <ng-container *ngFor="let column of defaultColumns1.slice(0,1); let index = index" [nbTreeGridColumnDef]="column">
+        <th nbTreeGridHeaderCell [nbSortHeader]="getSortDirection(column)" *nbTreeGridHeaderCellDef>
+          {{ column | titlecase }}
+        </th>
+        <td nbTreeGridCell *nbTreeGridCellDef="let row" >
+          {{ row.data[column] }}
+
+        </td>
+
+      </ng-container>
+
+      <ng-container *ngFor="let column of defaultColumns1.slice(1,2)" [nbTreeGridColumnDef]="column">
+        <th nbTreeGridHeaderCell *nbTreeGridHeaderCellDef>
+          {{ column | titlecase }}
+        </th>
+        <td nbTreeGridCell *nbTreeGridCellDef="let row">
+          <nb-icon (click)="edit(row.data)"icon="edit-outline" aria-hidden="true" nbTooltip="Edit this player" nbTooltipPlacement="top" nbTooltipStatus="danger"></nb-icon>
+          <nb-icon (click)="delete(row.data)" icon="trash-2-outline" aria-hidden="true" nbTooltip="Delete this player" nbTooltipPlacement="top" nbTooltipStatus="danger" ></nb-icon>
+
+        </td>
+
+      </ng-container> -->
+
+
+    <!-- </table> -->
+  </nb-card-body>
+</nb-card>

@@ -1,0 +1,50 @@
+nb-card-footer {
+  .form-group {
+    display: flex;
+
+    button {
+
+      margin-left: 3%;
+
+    }
+
+  }
+}
+
+
+
+form {
+  display: flex;
+}
+
+.btn-add-lane {
+  margin: 0 auto;
+}
+
+.button-add-lane {
+  float: right;
+  width: 25px;
+  margin: 0 auto;
+  // position: relative;
+  // left: 80%;
+  // bottom:-7px
+}
+
+.lane {
+  // height: 35px;
+  position: relative;
+  top: 15px;
+  // height: -10px;
+  // nb-form-field {
+  //   margin-right: 10%;
+  // }
+}
+
+.header {
+  margin-top: 10%;
+}
+
+#header-lane {
+  line-height: 35px // position: absolute;
+    // width: 100%;
+}

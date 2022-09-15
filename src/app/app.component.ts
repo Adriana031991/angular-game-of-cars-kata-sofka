@@ -13,18 +13,8 @@ export class AppComponent {
     private iconLibraries: NbIconLibraries,
 
   ){
-    this.iconLibraries.registerFontPack('font-awesome', { packClass: 'fa' });
-    // this.iconLibraries.registerFontPack('solid', {packClass: 'fas', iconClassPrefix: 'fa'});
-    // this.iconLibraries.registerFontPack('regular', {packClass: 'far', iconClassPrefix: 'fa'});
-    // this.iconLibraries.registerFontPack('light', {packClass: 'fal', iconClassPrefix: 'fa'});
-    // this.iconLibraries.registerFontPack('duotone', {packClass: 'fad', iconClassPrefix: 'fa'});
-    // this.iconLibraries.registerFontPack('brands', {packClass: 'fab', iconClassPrefix: 'fa'});
-
-    // this.iconLibraries.setDefaultPack('duotone');
-    // this.iconLibraries.registerFontPack('font-awesome', {ligature: true});
-    // this.iconLibraries.registerFontPack('far', { packClass: 'far', iconClassPrefix: 'fa' });
-    // this.iconLibraries.registerFontPack('fab', { packClass: 'fab', iconClassPrefix: 'fa' });
-    // this.iconLibraries.setDefaultPack('font-awesome');
+    this.iconLibraries.registerFontPack('font-awesome', { packClass: 'fa'});
+    this.iconLibraries.setDefaultPack('font-awesome');
 
   }
 }

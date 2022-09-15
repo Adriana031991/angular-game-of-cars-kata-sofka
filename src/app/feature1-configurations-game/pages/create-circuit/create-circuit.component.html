@@ -1,0 +1,83 @@
+<nb-card status="success">
+  <nb-card-header>{{ title }}</nb-card-header>
+  <nb-card-body>
+
+    <div class="row">
+      <form [formGroup]="createCircuitForm">
+
+        <div class=" col-sm-12 ">
+          <div class="form-group ">
+
+            <label class="label col-sm-3 col-form-label">Name of Track</label>
+            <input type="text" fullWidth nbInput status="info" placeholder="Write the name of Track"
+              formControlName="name" nbTooltip="Please write a name for track" nbTooltipPlacement="bottom"
+              nbTooltipStatus="warning" />
+
+            <nb-alert *ngIf="nameOfTrack.errors?.['minlength']" accent="success" status="danger" role="alert"
+              size="tiny">
+              The Name should have 3 words
+            </nb-alert>
+
+            <div class="form-group ">
+              <label class="label col-sm-3 col-form-label">Kilometers of Track</label>
+
+              <input type="number" fullWidth nbInput status="info" placeholder="Write the kilometers of Track"
+                formControlName="kilometers" nbTooltip="please write a number" nbTooltipPlacement="bottom"
+                nbTooltipStatus="warning" />
+
+              <nb-alert *ngIf="kilometers.errors?.['min']" accent="success" status="danger" role="alert" size="tiny">
+                Should be minimum 1000 kilometers
+              </nb-alert>
+
+            </div>
+          </div>
+
+          <div class="col-sm-12">
+            <div class="form-group header" formArrayName="lanes">
+              <nb-card status="success">
+                <nb-card-header id="header-lane">
+                  Add Lane
+                  <button class="button-add-lane" nbButton shape="rectangle" status="primary" (click)="addLanes()">
+                    <nb-icon icon="fa-plus" pack="font-awesome"></nb-icon>
+                  </button>
+                </nb-card-header>
+
+
+                <nb-card-body>
+                  <div class="form-group row " [formGroupName]="i" *ngFor="let lane of lanes.controls; let i = index">
+                    <div class="lane">
+                      <label class="label col-sm-3 col-form-label">Name of Lane</label>
+
+                      <nb-form-field>
+                        <input type="text" nbInput fullWidth status="info" placeholder="Write the name of lane"
+                          formControlName="name" />
+                        <button class="btn-add-lane" nbSuffix nbButton ghost (click)="removeLane(i)">
+                          <nb-icon icon="fa-xmark" pack="font-awesome"></nb-icon>
+                        </button>
+                      </nb-form-field>
+
+                    </div>
+                  </div>
+                </nb-card-body>
+
+              </nb-card>
+            </div>
+
+
+          </div>
+        </div>
+      </form>
+    </div>
+  </nb-card-body>
+
+  <nb-card-footer>
+    <div class="form-group">
+      <button nbButton shape="semi-round" status="primary" [disabled]="disableButton()" (click)="enterDataCircuit()">
+        Next
+      </button>
+
+      <button nbButton status="danger" shape="semi-round" (click)="cancel()">Cancel</button>
+
+    </div>
+  </nb-card-footer>
+</nb-card>

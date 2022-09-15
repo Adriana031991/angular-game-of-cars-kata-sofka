@@ -1,0 +1,113 @@
+<form [formGroup]="configureGameForm">
+
+
+  <div class="row">
+
+    <div class="col-sm-7 " [ngClass]="{disable: isDisabledFirstForm}">
+      <div class="form-group  select ">
+        <label class="label col-sm-3 col-form-label">Select the track</label>
+
+        <div class="container-track" *ngIf="listOfTracks$ | async as tracks">
+          <nb-select placeholder="Choose the Track" [(selected)]="selectedItem" formControlName="track"
+            nbTooltip="Please select 1 track for race" nbTooltipPlacement="top" nbTooltipStatus="danger">
+            <nb-option *ngFor="let track of tracks " [value]="track">{{ track.name }}
+            </nb-option>
+            <nb-option>Choose the Track</nb-option>
+          </nb-select>
+
+          <button nbButton status="primary" (click)="createCircuit()"
+          nbTooltip="Create new circuit" nbTooltipPlacement="top" nbTooltipStatus="primary">
+            <nb-icon icon="fa-plus" pack="font-awesome"></nb-icon>
+          </button>
+        </div>
+      </div>
+
+
+
+    </div>
+    <div class=" col-sm-4">
+      <div class="form-group  players">
+        <label for="numberOfPlayers" class="label col-sm-3 col-form-label">How many players will participate</label>
+        <input type="number" nbInput id="numberOfPlayers" fullWidth placeholder="Number of Players"
+          formControlName="numberOfPlayers" 
+          nbTooltip="Number of Players should be 3 or more" nbTooltipPlacement="bottom" nbTooltipStatus="warning"/>
+ 
+      </div>
+    </div>
+
+
+    <div class="col-12 col-sm-12">
+
+      <div class=" form-group row">
+        <button nbButton shape="semi-round" status="primary" [disabled]="disableButtonNext()" (click)="openFieldName()"
+          nbTooltip="Next" nbTooltipPlacement="top" nbTooltipStatus="primary">
+          <nb-icon icon="fa-circle-arrow-right" pack="font-awesome"></nb-icon>
+
+        </button>
+        <button nbButton status="danger" shape="semi-round" (click)="resetConfigureForm()" nbTooltip="Reset"
+          nbTooltipPlacement="top" nbTooltipStatus="danger">
+          <nb-icon icon="fa-arrow-rotate-left" pack="font-awesome"></nb-icon>
+        </button>
+      </div>
+    </div>
+
+  </div>
+
+
+  <div class="row">
+
+    <div class=" second--form col-sm-6" [ngClass]="{disable: isDisabledSecondForm}">
+      <div class="form-group">
+
+        <label for="nameOfPlayer" class="label col-sm-3 col-form-label">Write the name of Player</label>
+
+        <input type="text" nbInput fullWidth placeholder="Write the name of Player" id="nameOfPlayer"
+          formControlName="nameOfPlayer" />
+
+        <nb-alert *ngIf="nameOfPlayer.errors?.['required']" accent="success" status="danger" role="alert" size="tiny">
+          Please write a name
+        </nb-alert>
+        <nb-alert *ngIf="nameOfPlayer.errors?.['minlength']" accent="success" status="danger" role="alert" size="tiny">
+          The Name should have 3 words
+        </nb-alert>
+
+      </div>
+
+      <div class="col-12 col-sm-12">
+
+        <div class=" form-group row">
+          <button nbButton shape="semi-round" status="primary" [disabled]="disableButtonEntryPlayer()" (click)="enterPlayer()" nbTooltip="Add Player"
+           nbTooltipPlacement="top" nbTooltipStatus="primary"  >
+            <nb-icon icon="fa-person-circle-plus" pack="font-awesome"></nb-icon>
+
+          </button>
+          <button nbButton shape="semi-round" status="danger" (click)="resetNameOfPlayerForm()" nbTooltip="Reset"
+            nbTooltipPlacement="top" nbTooltipStatus="danger">
+            <nb-icon icon="fa-person-circle-xmark" pack="font-awesome"></nb-icon>
+
+          </button>
+          <button nbButton shape="semi-round" status="warning" (click)="back()" nbTooltip="Back"
+            nbTooltipPlacement="top" nbTooltipStatus="warning">
+            <nb-icon icon="fa-circle-arrow-left" pack="font-awesome"></nb-icon>
+          </button>
+        </div>
+      </div>
+
+
+    </div>
+
+  </div>
+
+
+
+    <div class="col-sm-12">
+        <app-player-table-component></app-player-table-component>
+
+    </div>
+
+
+
+
+
+</form>
+

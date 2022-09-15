@@ -1,0 +1,22 @@
+
+  <nb-card status="success">
+    <nb-card-header>Configure you game</nb-card-header>
+    <nb-card-body>
+
+          <app-configure-game></app-configure-game>
+          <nb-card-footer *ngIf="gameStarted">
+            <button
+            nbButton
+            status="primary"
+            shape="semi-round"
+            [disabled]="disableButton()"
+            (click)="startGame()"
+            >
+            start Game
+          </button>
+        </nb-card-footer>
+
+    
+        </nb-card-body>
+    </nb-card>
+

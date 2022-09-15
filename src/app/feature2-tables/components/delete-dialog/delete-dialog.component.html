@@ -1,0 +1,20 @@
+<div class="row ">
+  <div class="col-md-12 col-xxxl-3">
+    <nb-card>
+      <nb-card-header>{{ title }}</nb-card-header>
+      <nb-card-body>
+        <nb-icon [icon]="'fa-triangle-exclamation'" pack="font-awesome" class="icon-triangle"></nb-icon>
+        <p>You are going to eliminate: {{data.name}}</p>
+      </nb-card-body>
+      <nb-card-footer>
+        <div class="form-group row">
+          <button nbButton status="danger" shape="semi-round"
+            (click)=" data.amount_Lanes ? deleteCircuit(): deletePlayer()">Delete</button>
+            
+          <button nbButton status="primary" shape="semi-round" (click)="cancel()">Cancel</button>
+        </div>
+      </nb-card-footer>
+    </nb-card>
+
+  </div>
+</div>

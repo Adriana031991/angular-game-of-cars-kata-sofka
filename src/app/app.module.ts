@@ -1,4 +1,4 @@
-import { NgModule } from '@angular/core';
+import { NgModule, ChangeDetectorRef } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { HttpClientModule } from '@angular/common/http';
 
@@ -7,7 +7,7 @@ import { AppComponent } from './app.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 import { NbDialogModule, NbMenuModule, NbThemeModule, NbToastrModule, NbWindowModule } from '@nebular/theme';
-import { UiModule } from './common/ui.module';
+import { UiModule } from './shared/ui.module';
 import { FormBuilder } from '@angular/forms';
 
 
@@ -21,7 +21,7 @@ import { FormBuilder } from '@angular/forms';
     AppRoutingModule,
     BrowserAnimationsModule,
     HttpClientModule,
-    NbThemeModule.forRoot({ name: 'default' }),
+    NbThemeModule.forRoot({ name: 'lila' }),
     UiModule,
     NbMenuModule.forRoot(),
     NbDialogModule.forRoot(),

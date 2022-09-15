@@ -3,6 +3,7 @@ import { NbDialogRef } from '@nebular/theme';
 import { Subject, takeUntil } from 'rxjs';
 import { DataPlayer } from 'src/app/common/models/player-interfaces';
 import { shareDataConfig } from 'src/app/common/models/shared.interface';
+import { FacadeService } from 'src/app/pages/services/facade.service';
 import { CallToBackendService } from 'src/app/services/call-to-backend.service';
 import { SharedService } from 'src/app/services/shared.service';
 
@@ -28,6 +29,7 @@ export class DeleteDialogComponent implements OnInit {
   constructor(
     private sharedService: SharedService,
     private server: CallToBackendService,
+    private facadeService: FacadeService,
     @Optional() protected ref: NbDialogRef<DeleteDialogComponent>,
   ) {
 
@@ -55,7 +57,10 @@ export class DeleteDialogComponent implements OnInit {
           this.ref.close();
         },
 
-        error: (err) => { console.log }
+        error: (err) => {
+          console.log('error enter player', err);
+          this.facadeService.errorMessage(err);
+        },
       })
 }
 

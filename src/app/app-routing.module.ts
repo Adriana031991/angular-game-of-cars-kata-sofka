@@ -1,14 +1,13 @@
 import { NgModule } from '@angular/core';
-import { ExtraOptions, RouterModule, Routes } from '@angular/router';
-import { RaceDialogComponent } from './pages/game/race-dialog/race-dialog.component';
+import { PreloadAllModules, RouterModule, Routes } from '@angular/router';
 
 const routes: Routes = [
 
   {
     path: 'layout',
     loadChildren: () =>
-      import('./pages/pages.module').then(
-        (m) => m.PagesModule
+      import('./feature3-game/game.module').then(
+        (m) => m.GameModule
       ),
   },
 
@@ -23,7 +22,7 @@ const routes: Routes = [
 
 
 @NgModule({
-  imports: [RouterModule.forRoot(routes)],
+  imports: [RouterModule.forRoot(routes, {preloadingStrategy: PreloadAllModules })], //pdte revisar
   exports: [RouterModule],
 })
 export class AppRoutingModule {}
