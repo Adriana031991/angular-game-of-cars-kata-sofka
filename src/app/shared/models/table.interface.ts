@@ -2,7 +2,7 @@ import { Circuit, Lane } from "./results-game.interface";
 
 export interface TableCircuits<T> {
   data: Circuit;
-  children?: TableCircuits<Lane>[];
+  children?: TableCircuits<T>[];
   expanded?: boolean;
 }
 export interface TableNode<T> {

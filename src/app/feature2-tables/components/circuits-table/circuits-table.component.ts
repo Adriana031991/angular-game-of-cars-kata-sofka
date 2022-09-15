@@ -18,15 +18,35 @@ export class CircuitsTableComponent implements OnInit, OnDestroy {
     .pipe(
       takeUntil(this.destroyListOfTracks$))
     .subscribe((data: any) => {
-      this.orderDataForTable(data);
-      this.dataSource.setData(this.newData);
-      this.changeDetection.detectChanges();
+      const newData: TableCircuits<Circuit>[] = data.map((res: Circuit) => {
+        // this.orderDataForTable(res);
+        if (res.lanes.length > 0) {
 
+              return {
+                data: { id: res.id, name: res.name, amount_Lanes: res.lanes, kilometers: res.kilometers },
+                children:
+                  res.lanes.map(l =>
+                    ({ data: { id: l.idLane, name: l.name, kilometers: l.car } })
+                  )
+              }
+      
+            } else {
+              return {
+                data: {
+                  id: res.id, name: res.name, amount_Lanes: res.lanes, kilometers: res.kilometers
+                }
+              }
+            }
+  
+      });
+
+      this.dataSource.setData(newData);
+      this.changeDetection.detectChanges();
     }
     );
 
 
-  newData!: TableCircuits<Circuit>[];
+  
   customColumn = 'id';
   defaultColumns = ['name', 'kilometers', 'amount_Lanes', 'actions'];
 
@@ -56,29 +76,59 @@ export class CircuitsTableComponent implements OnInit, OnDestroy {
 
     this.dataSource = this.dataSourceBuilder.create([]);
 
+
   }
 
-  orderDataForTable(data : any) {
-    this.newData =data.forEach((res: Circuit) => {
-      if (res.lanes.length > 0) {
-  
-        return {
-          data: { id: res.id, name: res.name, amount_Lanes: res.lanes, kilometers: res.kilometers },
-          children:
-            res.lanes.map(l =>
-              ({ data: { id: l.idLane, name: l.name, kilometers: l.car } })
-            )
-        }
-  
-      } else {
-        return {
-          data: {
-            id: res.id, name: res.name, amount_Lanes: res.lanes, kilometers: res.kilometers
-          }
-        }
-      }
-    });
-  }
+  // orderDataForTable(data: Circuit) {
+  //   // this.newData =data.forEach((res: Circuit) => {
+  //   //   if (res.lanes.length > 0) {
+
+  //   //     return {
+  //   //       data: { id: res.id, name: res.name, amount_Lanes: res.lanes, kilometers: res.kilometers },
+  //   //       children:
+  //   //         res.lanes.map(l =>
+  //   //           ({ data: { id: l.idLane, name: l.name, kilometers: l.car } })
+  //   //         )
+  //   //     }
+
+  //   //   } else {
+  //   //     return {
+  //   //       data: {
+  //   //         id: res.id, name: res.name, amount_Lanes: res.lanes, kilometers: res.kilometers
+  //   //       }
+  //   //     }
+  //   //   }
+  //   // });
+
+  //   if (data.lanes.length > 0) {
+  //     // let a = data.lanes.forEach(l=> {
+  //     //   return {data: {id: l.idLane, name: l.name, lanes:l.car, kilometers:l.car}
+  //     // }
+
+  //     // })
+
+  //     return  {
+
+  //       // data: {},
+  //       // children?: TableCircuits<Lane>[];
+  //       data: { id: data.id, name: data.name, lanes: data.lanes, kilometers: data.kilometers },
+  //       children: data.lanes.map((l: any) => {
+  //         return {
+  //           data: { id: l.idLane, name: l.name, lanes: [], kilometers: 0 }
+  //         }
+
+  //       })
+
+  //     }
+  //   } else {
+  //     return  {
+  //       data: {
+  //         id: data.id, name: data.name, lanes: data.lanes, kilometers: data.kilometers
+  //       }
+  //     }
+  //   }
+  //   // console.log(this.newData);
+  // }
 
   updateSort(sortRequest: NbSortRequest): void {
     this.sortColumn = sortRequest.column;
